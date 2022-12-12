@@ -1,7 +1,7 @@
 import React from 'react';
-import {Route, Navigate, Link } from "react-router-dom";
+import { Route, Navigate, Link } from "react-router-dom";
 
-const Guard = ({children, ...rest }) => {
+const Main = ({ children, ...rest }) => {
 
     function hasJWT() {
         let flag = false;
@@ -12,8 +12,8 @@ const Guard = ({children, ...rest }) => {
         return flag
     }
 
-    return ( hasJWT() ? children : <Navigate to='/login' /> 
+    return (hasJWT() ? <Navigate to='/home' /> : <Navigate to='/login' />
     );
 };
 
-export default Guard;
+export default Main;
