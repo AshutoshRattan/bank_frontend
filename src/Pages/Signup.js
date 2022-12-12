@@ -1,23 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react'
-import {Navigate, Link} from "react-router-dom";
+import { Navigate, Link} from "react-router-dom";
 import validator from 'validator'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios';
 
-const Home = () => {
+const Signup = () => {
     let [isLoggedIn, setLoggedIn] = useState(localStorage.getItem('token') ? true : false)
+    let [name, setName] = useState('')
     let [email, setEmail] = useState('')
     let [password, setPassword] = useState('')
 
     const submit = async () => {
-        if (!validator.isEmail(email) || password == '') {
-            toast('check email or password')
+        if (name == '' || !validator.isEmail(email) || password == '') {
+            toast('check name, email or password')
             return
         }
 
         try {
-            let res = await axios.post('http://localhost:3000/api/v1/User/login', {
+            let res = await axios.post('http://localhost:3000/api/v1/User/createAccount', {
+                'name': name,
                 'email': email,
                 'password': password
             })
@@ -30,21 +32,25 @@ const Home = () => {
             toast(e.response.data.msg)
         }
     }
+
     return (
-        <div>
+        <>
             <ToastContainer />
-            {isLoggedIn ? <Navigate to="/home"/> : null}
-            <Link to='/signup'>signup</Link>
+            {isLoggedIn ? <Navigate to="/home" /> : null}
+            <Link to='/login'>login</Link>
             <br />
-            <label htmlFor="">Email</label>
+            <label htmlFor="name">Name</label>
+            <input type="text" id='name' onChange={(e) => { setName(e.target.value) }} />
+            <br />
+            <label htmlFor="email">Email</label>
             <input type="email" id='email' onChange={(e) => { setEmail(e.target.value) }} />
             <br />
-            <label htmlFor="">Password</label>
+            <label htmlFor="password">Password</label>
             <input type="password" id='password' onChange={(e) => { setPassword(e.target.value) }} />
             <br />
             <button type="submit" onClick={submit}>Submit</button>
-        </div>
+        </>
     )
 }
 
-export default Home
+export default Signup
