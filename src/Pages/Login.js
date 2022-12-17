@@ -21,12 +21,12 @@ const Home = () => {
                 'email': email,
                 'password': password
             })
-            console.log(res)
+            // console.log(res)
             localStorage.setItem('token', JSON.stringify(res.data.JWT))
             setLoggedIn(true)
         }
         catch (e) {
-            console.log(e)
+            // console.log(e)
             toast(e.response.data.msg)
         }
     }
