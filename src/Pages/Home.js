@@ -4,13 +4,17 @@ import validator from 'validator'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios';
+import NavBar from '../components/NavBar'
 
 const Home = () => {
-    
+
     return (
-        <div>
-            <h1>helloo</h1>
-        </div>
+        <>
+            <NavBar />
+            <div>
+                <h1>helloo</h1>
+            </div>
+        </>
     )
 }
 
