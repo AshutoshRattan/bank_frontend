@@ -9,19 +9,7 @@ const AppProvider = ({ children }) => {
     let [getName, setName] = useState('nul')
     let [getEmail, setEmail] = useState('nul')
     let [getBalance, setBalance] = useState(0)
-
-
-    // useEffect(() => {
-    //     let token = localStorage.getItem("token")
-    //     if(token == undefined) return
-    //     let decoded = jwt_decode(token)
-    //     console.log(decoded)
-    //     setName(decoded.name)
-    //     setEmail(decoded.email)
-
-    //     // axios.post()
-
-    // }, [])
+    // let [isLoggedIn, setloggedIn] = useState(false)
 
     return (
         <AppContext.Provider
@@ -31,7 +19,9 @@ const AppProvider = ({ children }) => {
                 getEmail,
                 setEmail,
                 getBalance,
-                setBalance
+                setBalance,
+                // isLoggedIn,
+                // setloggedIn
             }}
         >
             {children}
