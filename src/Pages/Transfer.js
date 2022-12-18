@@ -9,7 +9,7 @@ import NavBar from '../components/NavBar'
 import { useGlobalContext } from '../context/GlobalContext';
 
 const Home = () => {
-    let { getName, setName, getEmail, setEmail, setBalance, getBalance } = useGlobalContext()
+    let { name, setName, email, setEmail, setBalance, balance } = useGlobalContext()
 
     let [to, setTo] = useState('')
     let [amount, setAmount] = useState(0)
@@ -60,7 +60,7 @@ const Home = () => {
         <>
             <NavBar />
             <ToastContainer />
-            <p>balance: {getBalance}</p>
+            <p>balance: {balance}</p>
             <label htmlFor="">to</label>
             <input type="text" onChange={(e) => { setTo(e.target.value) }} />
             <br />

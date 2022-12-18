@@ -6,22 +6,27 @@ const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
     
-    let [getName, setName] = useState('nul')
-    let [getEmail, setEmail] = useState('nul')
-    let [getBalance, setBalance] = useState(0)
-    // let [isLoggedIn, setloggedIn] = useState(false)
+    let [name, setName] = useState('nul')
+    let [email, setEmail] = useState('nul')
+    let [balance, setBalance] = useState(0)
+    let [isLoggedIn, setLoggedIn] = useState(false)
 
+    useEffect(() => {
+        setLoggedIn(localStorage.getItem('token') ? true : false)
+    },
+    [])
+    console.log("hello")
     return (
         <AppContext.Provider
             value={{
-                getName,
+                name,
                 setName,
-                getEmail,
+                email,
                 setEmail,
-                getBalance,
+                balance,
                 setBalance,
-                // isLoggedIn,
-                // setloggedIn
+                isLoggedIn,
+                setLoggedIn
             }}
         >
             {children}

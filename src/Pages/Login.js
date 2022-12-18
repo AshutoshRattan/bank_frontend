@@ -4,9 +4,10 @@ import validator from 'validator'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios';
+import { useGlobalContext } from '../context/GlobalContext';
 
 const Home = () => {
-    let [isLoggedIn, setLoggedIn] = useState(localStorage.getItem('token') ? true : false)
+    let {isLoggedIn, setLoggedIn} = useGlobalContext()
     let [email, setEmail] = useState('')
     let [password, setPassword] = useState('')
 

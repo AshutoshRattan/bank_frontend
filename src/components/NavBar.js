@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Navigate, Link } from "react-router-dom";
+import { Navigate, Link, useNavigate } from "react-router-dom";
 import validator from 'validator'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -9,10 +9,18 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useGlobalContext } from '../context/GlobalContext';
 
 
 const NavBar = () => {
+    let navigate = useNavigate()
     let name = "ashutosh"
+    let {setLoggedIn} = useGlobalContext()
+    let logOut = () => {
+        localStorage.removeItem('token')
+        setLoggedIn(false)
+        navigate("/login")
+    }
     return (
         <Navbar bg="primary" variant='dark' expand="lg">
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -24,7 +32,7 @@ const NavBar = () => {
                 </Nav>
 
                 <Nav className="ms-auto me-2">
-                    <Navbar.Text>Logout</Navbar.Text>
+                    <Navbar.Text onClick={() => {logOut()}}>Logout</Navbar.Text>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
