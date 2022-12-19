@@ -68,9 +68,10 @@ const Transactions = () => {
                 </tr>
                 </thead>
 
+                <tbody>
                 {recentTransactions.map((transaction) => {
                     return(
-                        <tr>
+                        <tr key={transaction.createdAt}>
                             <td>{transaction.from}</td>
                             <td>{transaction.to}</td>
                             <td>{transaction.amount}</td>
@@ -78,6 +79,7 @@ const Transactions = () => {
                         </tr>
                     )
                 })}
+                </tbody>
             </table>
             <button onClick={() => {fetchPrev(page) }}> {"<"} </button>
             <p style={{display: "inline"}}>{page.current} of {max.current}</p>
