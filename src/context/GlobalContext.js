@@ -12,10 +12,15 @@ const AppProvider = ({ children }) => {
     let [isLoggedIn, setLoggedIn] = useState(false)
 
     useEffect(() => {
+        let token = localStorage.getItem('token')
+        if(!token) return
+        let {exp} = jwt_decode(token)
+        if (exp < Date.now()){
+            localStorage.removeItem('token')
+        }
         setLoggedIn(localStorage.getItem('token') ? true : false)
     },
     [])
-    console.log("hello")
     return (
         <AppContext.Provider
             value={{
