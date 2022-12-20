@@ -7,6 +7,7 @@ import Home from './Pages/Home'
 import Main from './Pages/Main'
 import Transfer from './Pages/Transfer'
 import Transactions from './Pages/Transactions'
+import Beneficiary from './Pages/Beneficiary'
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path='/home' element={<Guard> <Home /> </Guard>} />
         <Route path='/transfer' element={<Guard> <Transfer /> </Guard>} />
         <Route path='/transactions' element={<Guard> <Transactions /> </Guard>} />
+        <Route path='/beneficiary' element={<Guard> <Beneficiary /> </Guard>} />
       </Routes>
     </Router>
   )
