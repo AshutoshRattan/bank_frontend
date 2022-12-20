@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Navigate, Link } from "react-router-dom";
+import { useGlobalContext } from '../context/GlobalContext';
 
 const Main = ({ children, ...rest }) => {
 
@@ -11,8 +12,9 @@ const Main = ({ children, ...rest }) => {
 
         return flag
     }
+    let {isLoggedIn} = useGlobalContext()
 
-    return (hasJWT() ? <Navigate to='/home' /> : <Navigate to='/login' />
+    return (isLoggedIn ? <Navigate to='/home' /> : <Navigate to='/login' />
     );
 };
 

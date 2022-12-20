@@ -9,8 +9,7 @@ import NavBar from '../components/NavBar'
 import { useGlobalContext } from '../context/GlobalContext';
 
 const Home = () => {
-    let { getName, setName, getEmail, setEmail, setBalance, getBalance} = useGlobalContext()
-    let balance = 10000
+    let { name, setName, email, setEmail, setBalance, balance} = useGlobalContext()
 
     let getBal = async (token) => {
         try{
@@ -42,8 +41,8 @@ const Home = () => {
     return (
         <>
             <NavBar />
-            <p>welcome back {getName}</p>
-            <p>your balance is {getBalance}</p>
+            <p>welcome back {name}</p>
+            <p>your balance is {balance}</p>
         </>
     )
 }

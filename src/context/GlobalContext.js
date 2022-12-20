@@ -6,32 +6,32 @@ const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
     
-    let [getName, setName] = useState('nul')
-    let [getEmail, setEmail] = useState('nul')
-    let [getBalance, setBalance] = useState(0)
+    let [name, setName] = useState('nul')
+    let [email, setEmail] = useState('nul')
+    let [balance, setBalance] = useState(0)
+    let [isLoggedIn, setLoggedIn] = useState(false)
 
-
-    // useEffect(() => {
-    //     let token = localStorage.getItem("token")
-    //     if(token == undefined) return
-    //     let decoded = jwt_decode(token)
-    //     console.log(decoded)
-    //     setName(decoded.name)
-    //     setEmail(decoded.email)
-
-    //     // axios.post()
-
-    // }, [])
-
+    useEffect(() => {
+        let token = localStorage.getItem('token')
+        if(!token) return
+        let {exp} = jwt_decode(token)
+        if (exp < Date.now()){
+            localStorage.removeItem('token')
+        }
+        setLoggedIn(localStorage.getItem('token') ? true : false)
+    },
+    [])
     return (
         <AppContext.Provider
             value={{
-                getName,
+                name,
                 setName,
-                getEmail,
+                email,
                 setEmail,
-                getBalance,
-                setBalance
+                balance,
+                setBalance,
+                isLoggedIn,
+                setLoggedIn
             }}
         >
             {children}
