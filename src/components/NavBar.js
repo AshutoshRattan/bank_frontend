@@ -17,6 +17,7 @@ const NavBar = () => {
     let name = "ashutosh"
     let {setLoggedIn} = useGlobalContext()
     let logOut = () => {
+        console.log("logged out")
         localStorage.removeItem('token')
         setLoggedIn(false)
         navigate("/login")
@@ -29,6 +30,8 @@ const NavBar = () => {
                     <Nav.Link as={Link} to="/Home">Home</Nav.Link>
                     <Nav.Link as={Link} to="/transactions">Transactions</Nav.Link>
                     <Nav.Link as={Link} to="/transfer">Transfer</Nav.Link>
+                    <Nav.Link as={Link} to="/beneficery">beneficery</Nav.Link>
+
                 </Nav>
 
                 <Nav className="ms-auto me-2">

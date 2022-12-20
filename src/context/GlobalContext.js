@@ -15,7 +15,8 @@ const AppProvider = ({ children }) => {
         let token = localStorage.getItem('token')
         if(!token) return
         let {exp} = jwt_decode(token)
-        if (exp < Date.now()){
+        if (exp > Date.now()){
+            console.log(exp < Date.now())
             localStorage.removeItem('token')
         }
         setLoggedIn(localStorage.getItem('token') ? true : false)
