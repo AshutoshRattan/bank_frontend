@@ -42,6 +42,22 @@ const Beneficiary = () => {
             toast(e.response.data.msg)
         }
     }
+
+    let copyId = async (e) => {
+        // console.log(e.target.nextSibling.innerText)//innerText)
+        let ID = e.target.nextSibling.innerText
+        navigator.clipboard.writeText(ID);
+        toast(`copied ${ID}`) 
+
+    }
+
+    let copyId2 = async (e) => {
+        // console.log(e.target.innerText)
+        let ID = e.target.innerText // target.__reactFiber$tlhze9l0dff.sibling.alternate
+        navigator.clipboard.writeText(ID);
+        toast(`copied ${ID}`)
+
+    }
     useEffect(() => {
         getBeneficeries(localStorage.getItem('token').replace('"', '').replace('"', ''))
     }, [])
@@ -72,9 +88,9 @@ const Beneficiary = () => {
                     <tbody>
                         {beneficiaryList.map((beneficiary) => {
                             return (
-                                <tr key={beneficiary.user2}>
-                                    <td>{beneficiary.alias}</td>
-                                    <td>{beneficiary.user2}</td>
+                                <tr key={beneficiary.user2} >
+                                    <td onClick={(e) => { copyId(e) }} >{beneficiary.alias}</td>
+                                    <td onClick={(e) => { copyId2(e) }} >{beneficiary.user2}</td>
                                 </tr>
                             )
                         })}

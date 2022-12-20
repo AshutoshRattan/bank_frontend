@@ -30,7 +30,7 @@ const NavBar = () => {
                     <Nav.Link as={Link} to="/Home">Home</Nav.Link>
                     <Nav.Link as={Link} to="/transactions">Transactions</Nav.Link>
                     <Nav.Link as={Link} to="/transfer">Transfer</Nav.Link>
-                    <Nav.Link as={Link} to="/beneficiary">beneficiary</Nav.Link>
+                    <Nav.Link as={Link} to="/beneficiary">Beneficiary</Nav.Link>
 
                 </Nav>
 
