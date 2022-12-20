@@ -15,7 +15,7 @@ import { useGlobalContext } from '../context/GlobalContext';
 const NavBar = () => {
     let navigate = useNavigate()
     let name = "ashutosh"
-    let {setLoggedIn} = useGlobalContext()
+    let { setLoggedIn } = useGlobalContext()
     let logOut = () => {
         console.log("logged out")
         localStorage.removeItem('token')
@@ -30,12 +30,12 @@ const NavBar = () => {
                     <Nav.Link as={Link} to="/Home">Home</Nav.Link>
                     <Nav.Link as={Link} to="/transactions">Transactions</Nav.Link>
                     <Nav.Link as={Link} to="/transfer">Transfer</Nav.Link>
-                    <Nav.Link as={Link} to="/beneficery">beneficery</Nav.Link>
+                    <Nav.Link as={Link} to="/beneficiary">beneficiary</Nav.Link>
 
                 </Nav>
 
                 <Nav className="ms-auto me-2">
-                    <Navbar.Text onClick={() => {logOut()}}>Logout</Navbar.Text>
+                    <Navbar.Text onClick={() => { logOut() }}>Logout</Navbar.Text>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

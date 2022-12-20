@@ -7,12 +7,12 @@ import axios from 'axios';
 import { useGlobalContext } from '../context/GlobalContext';
 import NavBar from '../components/NavBar'
 import { Toast } from 'bootstrap';
-const Beneficery = () => {
+const Beneficiary = () => {
     let [id, setId] = useState('')
     let [name, setName] = useState('')
-    let [beneficeryList, setBeneficeryList] = useState([])
+    let [beneficiaryList, setBeneficiaryList] = useState([])
 
-    let addBeneficery = async (token) => {
+    let addBeneficiary = async (token) => {
         try {
             let res = await axios.post('http://localhost:3000/api/v1/User/createAlias', {
                 'aliasID': id,
@@ -21,7 +21,7 @@ const Beneficery = () => {
                 headers: { "Authorization": `Bearer ${token}` }
             })
             console.log(res.data.msg)
-            setBeneficeryList(res.data.data)
+            setBeneficiaryList(res.data.data)
             console.log(res.data.data)
             toast(res.data.msg)
         }
@@ -36,7 +36,7 @@ const Beneficery = () => {
             let res = await axios.get('http://localhost:3000/api/v1/User/getAliases', {
                 headers: { "Authorization": `Bearer ${token}` }
             })
-            setBeneficeryList(res.data.data)
+            setBeneficiaryList(res.data.data)
         }
         catch(e){
             toast(e.response.data.msg)
@@ -56,7 +56,7 @@ const Beneficery = () => {
                 <label htmlFor="id">Id</label>
                 <input type="text" id='id' onChange={(e) => { setId(e.target.value) }} />
                 <br />
-                <button onClick={() => { addBeneficery(
+                <button onClick={() => { addBeneficiary(
                     localStorage.getItem('token').replace('"', '').replace('"', '')) }}>Submit</button>
             </div>
 
@@ -64,17 +64,17 @@ const Beneficery = () => {
                 <table style={{ width: "100%" }}>
                     <thead>
                         <tr>
-                            <th>Beneficery</th>
+                            <th>Beneficiary</th>
                             <th>Id</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        {beneficeryList.map((beneficery) => {
+                        {beneficiaryList.map((beneficiary) => {
                             return (
-                                <tr key={beneficery.user2}>
-                                    <td>{beneficery.alias}</td>
-                                    <td>{beneficery.user2}</td>
+                                <tr key={beneficiary.user2}>
+                                    <td>{beneficiary.alias}</td>
+                                    <td>{beneficiary.user2}</td>
                                 </tr>
                             )
                         })}
@@ -85,4 +85,4 @@ const Beneficery = () => {
     )
 }
 
-export default Beneficery
+export default Beneficiary
