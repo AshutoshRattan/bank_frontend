@@ -9,7 +9,7 @@ import NavBar from '../components/NavBar'
 import { useGlobalContext } from '../context/GlobalContext';
 
 const Transactions = () => {
-    let { beneficiaryList } = useGlobalContext()
+    let { beneficiaryList , id, name} = useGlobalContext()
     let [recentTransactions, setRecentTransactions] = useState([])
     let page = useRef(1)
     let limit = useRef(10)
@@ -21,8 +21,14 @@ const Transactions = () => {
                 if (obj.to == obj2.user2){
                     obj.to = obj2.alias
                 }
+                if(obj.to == id){
+                    obj.to = name
+                }
                 if (obj.from == obj2.user2) {
                     obj.from = obj2.alias
+                }
+                if (obj.from == id) {
+                    obj.from = name
                 }
             })
         });

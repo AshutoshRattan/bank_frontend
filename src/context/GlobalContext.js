@@ -8,6 +8,7 @@ const AppProvider = ({ children }) => {
     
     let [name, setName] = useState('nul')
     let [email, setEmail] = useState('nul')
+    let [id, setId] = useState('')
     let [balance, setBalance] = useState(0)
     let [isLoggedIn, setLoggedIn] = useState(false)
     let [beneficiaryList, setBeneficiaryList] = useState([])
@@ -27,12 +28,13 @@ const AppProvider = ({ children }) => {
     useEffect(() => {
         let token = localStorage.getItem('token')
         if(!token) return
-        let {exp} = jwt_decode(token)
+        let {exp, userId} = jwt_decode(token)
         if (exp > Date.now()){
             console.log(exp < Date.now())
             localStorage.removeItem('token')
         }
         setLoggedIn(localStorage.getItem('token') ? true : false)
+        setId(userId)
     },
     [])
 
@@ -56,7 +58,9 @@ const AppProvider = ({ children }) => {
                 isLoggedIn,
                 setLoggedIn, 
                 beneficiaryList, 
-                setBeneficiaryList
+                setBeneficiaryList, 
+                id,
+                setId
             }}
         >
             {children}
