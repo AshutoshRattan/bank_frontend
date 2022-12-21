@@ -7,10 +7,12 @@ import axios from 'axios';
 import { useGlobalContext } from '../context/GlobalContext';
 import NavBar from '../components/NavBar'
 import { Toast } from 'bootstrap';
+
 const Beneficiary = () => {
+    let {beneficiaryList, setBeneficiaryList} = useGlobalContext()
     let [id, setId] = useState('')
     let [name, setName] = useState('')
-    let [beneficiaryList, setBeneficiaryList] = useState([])
+    // let [beneficiaryList, setBeneficiaryList] = useState([])
 
     let addBeneficiary = async (token) => {
         try {
@@ -31,17 +33,17 @@ const Beneficiary = () => {
         }
     }
 
-    let getBeneficeries = async (token) => {
-        try{
-            let res = await axios.get('http://localhost:3000/api/v1/User/getAliases', {
-                headers: { "Authorization": `Bearer ${token}` }
-            })
-            setBeneficiaryList(res.data.data)
-        }
-        catch(e){
-            toast(e.response.data.msg)
-        }
-    }
+    // let getBeneficeries = async (token) => {
+    //     try{
+    //         let res = await axios.get('http://localhost:3000/api/v1/User/getAliases', {
+    //             headers: { "Authorization": `Bearer ${token}` }
+    //         })
+    //         setBeneficiaryList(res.data.data)
+    //     }
+    //     catch(e){
+    //         toast(e.response.data.msg)
+    //     }
+    // }
 
     let copyId = async (e) => {
         // console.log(e.target.nextSibling.innerText)//innerText)
@@ -58,9 +60,9 @@ const Beneficiary = () => {
         toast(`copied ${ID}`)
 
     }
-    useEffect(() => {
-        getBeneficeries(localStorage.getItem('token').replace('"', '').replace('"', ''))
-    }, [])
+    // useEffect(() => {
+    //     getBeneficeries(localStorage.getItem('token').replace('"', '').replace('"', ''))
+    // }, [])
     return (
         <>
             <NavBar />

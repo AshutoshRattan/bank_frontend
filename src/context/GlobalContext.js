@@ -10,6 +10,19 @@ const AppProvider = ({ children }) => {
     let [email, setEmail] = useState('nul')
     let [balance, setBalance] = useState(0)
     let [isLoggedIn, setLoggedIn] = useState(false)
+    let [beneficiaryList, setBeneficiaryList] = useState([])
+
+    let getBeneficeries = async (token) => {
+        try {
+            let res = await axios.get('http://localhost:3000/api/v1/User/getAliases', {
+                headers: { "Authorization": `Bearer ${token}` }
+            })
+            setBeneficiaryList(res.data.data)
+        }
+        catch (e) {
+            // toast(e.response.data.msg)
+        }
+    }
 
     useEffect(() => {
         let token = localStorage.getItem('token')
@@ -22,6 +35,15 @@ const AppProvider = ({ children }) => {
         setLoggedIn(localStorage.getItem('token') ? true : false)
     },
     [])
+
+    useEffect(() => {
+        if(isLoggedIn){
+            getBeneficeries(localStorage.getItem('token').replace('"', '').replace('"', ''))
+        }
+        else{
+            setBeneficiaryList([])
+        }
+    }, [isLoggedIn])
     return (
         <AppContext.Provider
             value={{
@@ -32,7 +54,9 @@ const AppProvider = ({ children }) => {
                 balance,
                 setBalance,
                 isLoggedIn,
-                setLoggedIn
+                setLoggedIn, 
+                beneficiaryList, 
+                setBeneficiaryList
             }}
         >
             {children}
