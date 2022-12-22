@@ -44,6 +44,8 @@ const Home = () => {
             <input type="password" id='password' onChange={(e) => { setPassword(e.target.value) }} />
             <br />
             <button type="submit" onClick={submit}>Submit</button>
+            <br />
+            <Link to={"/forgotPassword"}>forgot password</Link>
         </div>
     )
 }

@@ -8,6 +8,7 @@ import Main from './Pages/Main'
 import Transfer from './Pages/Transfer'
 import Transactions from './Pages/Transactions'
 import Beneficiary from './Pages/Beneficiary'
+import ForgotPassword from './Pages/ForgotPassword'
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path='/' element={<Main />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
+        <Route path='/forgotPassword' element={<ForgotPassword />} />
         <Route path='/home' element={<Guard> <Home /> </Guard>} />
         <Route path='/transfer' element={<Guard> <Transfer /> </Guard>} />
         <Route path='/transactions' element={<Guard> <Transactions /> </Guard>} />
