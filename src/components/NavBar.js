@@ -35,6 +35,9 @@ const NavBar = () => {
                 </Nav>
 
                 <Nav className="ms-auto me-2">
+                    <NavDropdown title="Settings" id="navbarScrollingDropdown" className='me-3'>
+                        <NavDropdown.Item as={Link} to="/changePassword">Change Password</NavDropdown.Item>
+                    </NavDropdown>
                     <Navbar.Text onClick={() => { logOut() }}>Logout</Navbar.Text>
                 </Nav>
             </Navbar.Collapse>
