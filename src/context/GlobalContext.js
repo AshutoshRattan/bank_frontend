@@ -5,7 +5,6 @@ import axios from 'axios';
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
-    
     let [name, setName] = useState('nul')
     let [email, setEmail] = useState('nul')
     let [id, setId] = useState('')
@@ -29,21 +28,20 @@ const AppProvider = ({ children }) => {
         let token = localStorage.getItem('token')
         if(!token) return
         let {exp, userId} = jwt_decode(token)
-        if (exp > Date.now()){
-            console.log(exp < Date.now())
+        if (exp < (Date.now() / 1000)) {
             localStorage.removeItem('token')
         }
         setLoggedIn(localStorage.getItem('token') ? true : false)
         setId(userId)
-    },
-    [])
+    }, [])
 
     useEffect(() => {
-        if(isLoggedIn){
+        console.count("log")
+        if (isLoggedIn == true) {
+            console.count("logged In true")
             getBeneficeries(localStorage.getItem('token').replace('"', '').replace('"', ''))
         }
-        else{
-            setBeneficiaryList([])
+        else { // when i refresh i go here
         }
     }, [isLoggedIn])
     return (
@@ -56,9 +54,9 @@ const AppProvider = ({ children }) => {
                 balance,
                 setBalance,
                 isLoggedIn,
-                setLoggedIn, 
-                beneficiaryList, 
-                setBeneficiaryList, 
+                setLoggedIn,
+                beneficiaryList,
+                setBeneficiaryList,
                 id,
                 setId
             }}

@@ -9,6 +9,7 @@ import Transfer from './Pages/Transfer'
 import Transactions from './Pages/Transactions'
 import Beneficiary from './Pages/Beneficiary'
 import ForgotPassword from './Pages/ForgotPassword'
+import ChangePassword from './Pages/ChangePassword'
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path='/transfer' element={<Guard> <Transfer /> </Guard>} />
         <Route path='/transactions' element={<Guard> <Transactions /> </Guard>} />
         <Route path='/beneficiary' element={<Guard> <Beneficiary /> </Guard>} />
+        <Route path='/changePassword' element={<Guard> <ChangePassword /> </Guard>} />
       </Routes>
     </Router>
   )
