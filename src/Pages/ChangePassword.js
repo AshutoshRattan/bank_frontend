@@ -16,7 +16,7 @@ const ChangePassword = (token) => {
 
     let changePassword = async (token) => {
         try{
-            let res = await axios.post("localhost:3000/User/changePassword", {
+            let res = await axios.post("http://localhost:3000/api/v1/User/changePassword", {
                 password,
                 newPassword
             }, {
@@ -39,6 +39,7 @@ const ChangePassword = (token) => {
     return (
         <>
             <NavBar />
+            <ToastContainer />
             <label htmlFor="password">Password</label>
             <input type="password" id='password' onChange={(e) => {setPassword(e.target.value)}}/>
             <br />
