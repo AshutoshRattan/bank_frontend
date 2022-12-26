@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios';
 import { useGlobalContext } from '../context/GlobalContext';
+import NavBar from '../components/NavBar';
 
 
 const Signup = () => {
@@ -37,10 +38,9 @@ const Signup = () => {
 
     return (
         <>
+            <NavBar />
             <ToastContainer />
             {isLoggedIn ? <Navigate to="/home" /> : null}
-            <Link to='/login'>login</Link>
-            <br />
             <label htmlFor="name">Name</label>
             <input type="text" id='name' onChange={(e) => { setName(e.target.value) }} />
             <br />

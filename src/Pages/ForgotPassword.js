@@ -67,6 +67,7 @@ const ForgotPassword = () => {
 
     return (
         <>
+            <NavBar />
             <ToastContainer/>
             {!isMailSent && <>
                 <label htmlFor="email">email</label>
