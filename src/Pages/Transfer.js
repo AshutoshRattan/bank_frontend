@@ -13,7 +13,7 @@ const Home = () => {
 
     let [to, setTo] = useState('')
     let [amount, setAmount] = useState(0)
-    
+
     let getBal = async (token) => {
         try {
             let res = await axios.get('http://localhost:3000/api/v1/Money/balance', {
@@ -37,7 +37,7 @@ const Home = () => {
                 'amount': amount
             }, {
                 headers: { "Authorization": `Bearer ${token}` }
-            })            
+            })
             toast('done')
             setBalance(res.data.bal)
         }
@@ -60,16 +60,20 @@ const Home = () => {
         <>
             <NavBar />
             <ToastContainer />
-            <p>balance: {balance}</p>
-            <label htmlFor="">to</label>
-            <input type="text" onChange={(e) => { setTo(e.target.value) }} />
-            <br />
-            <label htmlFor="">amount</label>
-            <input type="number" onChange={(e) => { setAmount(e.target.value) }} />
-            <br />
-            <button type="submit" onClick={() => {
-                transfer(localStorage.getItem("token").replace('"', '').replace('"', ''))
-            }}>transfer</button>
+            <div className="parent">
+                <div>
+                    <p>balance: {balance}</p>
+                    <label htmlFor="">to</label>
+                    <input type="text" onChange={(e) => { setTo(e.target.value) }} />
+                    <br />
+                    <label htmlFor="">amount</label>
+                    <input type="number" onChange={(e) => { setAmount(e.target.value) }} />
+                    <br />
+                    <button type="submit" onClick={() => {
+                        transfer(localStorage.getItem("token").replace('"', '').replace('"', ''))
+                    }}>transfer</button>
+                </div>
+            </div>
         </>
 
     )

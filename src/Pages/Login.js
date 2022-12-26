@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import {Navigate, Link} from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import validator from 'validator'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -8,7 +8,7 @@ import { useGlobalContext } from '../context/GlobalContext';
 import NavBar from '../components/NavBar';
 
 const Home = () => {
-    let {isLoggedIn, setLoggedIn} = useGlobalContext()
+    let { isLoggedIn, setLoggedIn } = useGlobalContext()
     let [email, setEmail] = useState('')
     let [password, setPassword] = useState('')
 
@@ -34,18 +34,22 @@ const Home = () => {
     }
     return (
         <div>
-            <NavBar/>
+            <NavBar />
             <ToastContainer />
-            {isLoggedIn ? <Navigate to="/home"/> : null}
-            <label htmlFor="">Email</label>
-            <input type="email" id='email' onChange={(e) => { setEmail(e.target.value) }} />
-            <br />
-            <label htmlFor="">Password</label>
-            <input type="password" id='password' onChange={(e) => { setPassword(e.target.value) }} />
-            <br />
-            <button type="submit" onClick={submit}>Submit</button>
-            <br />
-            <Link to={"/forgotPassword"}>forgot password</Link>
+            <div className='parent'>
+                <div>
+                    {isLoggedIn ? <Navigate to="/home" /> : null}
+                    <label htmlFor="">Email</label>
+                    <input type="email" id='email' onChange={(e) => { setEmail(e.target.value) }} />
+                    <br />
+                    <label htmlFor="">Password</label>
+                    <input type="password" id='password' onChange={(e) => { setPassword(e.target.value) }} />
+                    <br />
+                    <button type="submit" onClick={submit}>Submit</button>
+                    {/* <br /> */}
+                    <Link to={"/forgotPassword"} style={{ paddingLeft: '10px' }}>forgot password</Link>
+                </div>
+            </div>
         </div>
     )
 }

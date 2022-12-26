@@ -10,6 +10,7 @@ import Transactions from './Pages/Transactions'
 import Beneficiary from './Pages/Beneficiary'
 import ForgotPassword from './Pages/ForgotPassword'
 import ChangePassword from './Pages/ChangePassword'
+import './App.css'
 
 
 function App() {

@@ -9,7 +9,7 @@ import NavBar from '../components/NavBar'
 import { Toast } from 'bootstrap';
 
 const Beneficiary = () => {
-    let {beneficiaryList, setBeneficiaryList} = useGlobalContext()
+    let { beneficiaryList, setBeneficiaryList } = useGlobalContext()
     let [id, setId] = useState('')
     let [name, setName] = useState('')
     // let [beneficiaryList, setBeneficiaryList] = useState([])
@@ -49,7 +49,7 @@ const Beneficiary = () => {
         // console.log(e.target.nextSibling.innerText)//innerText)
         let ID = e.target.nextSibling.innerText
         navigator.clipboard.writeText(ID);
-        toast(`copied ${ID}`) 
+        toast(`copied ${ID}`)
 
     }
 
@@ -67,37 +67,41 @@ const Beneficiary = () => {
         <>
             <NavBar />
             <ToastContainer />
-            <div>
-                <label htmlFor="name">Name</label>
-                <input type="text" id='name' onChange={(e) => { setName(e.target.value) }} />
-                <br />
-                <label htmlFor="id">Id</label>
-                <input type="text" id='id' onChange={(e) => { setId(e.target.value) }} />
-                <br />
-                <button onClick={() => { addBeneficiary(
-                    localStorage.getItem('token').replace('"', '').replace('"', '')) }}>Submit</button>
-            </div>
+            <div className="parent" style={{'height':'50vh'}}>
 
-            <div>
-                <table style={{ width: "100%" }}>
-                    <thead>
-                        <tr>
-                            <th>Beneficiary</th>
-                            <th>Id</th>
-                        </tr>
-                    </thead>
+                <div>
+                    <label htmlFor="name">Name</label>
+                    <input type="text" id='name' onChange={(e) => { setName(e.target.value) }} />
+                    <br />
+                    <label htmlFor="id">Id</label>
+                    <input type="text" id='id' onChange={(e) => { setId(e.target.value) }} />
+                    <br />
+                    <button onClick={() => {
+                        addBeneficiary(
+                            localStorage.getItem('token').replace('"', '').replace('"', ''))
+                    }}>Submit</button>
+                </div>
+                <div>
+                    <table style={{ width: "100%" }}>
+                        <thead>
+                            <tr>
+                                <th>Beneficiary</th>
+                                <th>Id</th>
+                            </tr>
+                        </thead>
 
-                    <tbody>
-                        {beneficiaryList.map((beneficiary) => {
-                            return (
-                                <tr key={beneficiary.user2} >
-                                    <td onClick={(e) => { copyId(e) }} >{beneficiary.alias}</td>
-                                    <td onClick={(e) => { copyId2(e) }} >{beneficiary.user2}</td>
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                </table>
+                        <tbody>
+                            {beneficiaryList.map((beneficiary) => {
+                                return (
+                                    <tr key={beneficiary.user2} >
+                                        <td onClick={(e) => { copyId(e) }} >{beneficiary.alias}</td>
+                                        <td onClick={(e) => { copyId2(e) }} >{beneficiary.user2}</td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </>
     )

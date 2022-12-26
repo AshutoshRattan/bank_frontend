@@ -16,50 +16,50 @@ const ForgotPassword = () => {
     let [OTP, setOTP] = useState('')
     let navigate = useNavigate()
 
-    let sendOTP = async () =>{
-        if (!validator.isEmail(email)){
+    let sendOTP = async () => {
+        if (!validator.isEmail(email)) {
             toast("please type correct email")
             return
         }
-        try{
+        try {
             let res = await axios.post('http://localhost:3000/api/v1/User/forgotPasswordOTP', {
-                "email": email 
+                "email": email
             })
             setMailSent(true)
             toast(res.data.msg)
         }
-        catch(e){
+        catch (e) {
             toast(e.response.data.msg)
         }
     }
 
     let resetPassword = async () => {
-        if(!validator.isNumeric(OTP) || OTP.length != 6){
+        if (!validator.isNumeric(OTP) || OTP.length != 6) {
             toast("please check your OTP")
             return
         }
-        if(password == ""){
+        if (password == "") {
             toast("please check your password")
             return
         }
 
-        try{
-            let res = await axios.post('http://localhost:3000/api/v1/User/forgotPassword', 
-            {
-                "email": email,
-                "OTP": OTP,
-                "password": password
-            })
+        try {
+            let res = await axios.post('http://localhost:3000/api/v1/User/forgotPassword',
+                {
+                    "email": email,
+                    "OTP": OTP,
+                    "password": password
+                })
             // setMailSent(true)
             toast("password sucessfully resetted")
             setTimeout(() => {
                 navigate('/login')
             }, 5000)
         }
-        catch(e){
+        catch (e) {
             toast(e.response.data.msg)
             setTimeout(() => {
-                setMailSent(false)                
+                setMailSent(false)
             }, 2000)
             console.log(e)
         }
@@ -68,25 +68,31 @@ const ForgotPassword = () => {
     return (
         <>
             <NavBar />
-            <ToastContainer/>
-            {!isMailSent && <>
-                <label htmlFor="email">email</label>
-                <input type="text" id="email"  onChange={(e) =>{setEmail(e.target.value)}}/>
-                <br />
-                <button onClick={() => {sendOTP()}}>Send</button>
+            <ToastContainer />
 
-            </>
-            }
-            {isMailSent && <>
-                <label htmlFor="otp">OTP</label>
-                <input type="text" id="otp" onChange={(e) => { setOTP (e.target.value) }} />
-                <br />
-                <label htmlFor="password">password</label>
-                <input type="text" id="password" onChange={(e) => { setPassword(e.target.value) }} />
-                <br />
-                <button onClick={() => {resetPassword()}}>Send</button>
-            </>
-            }
+            <div className='parent'>
+                <div>
+                    {!isMailSent && <>
+                        <label htmlFor="email">email</label>
+                        <input type="text" id="email" onChange={(e) => { setEmail(e.target.value) }} />
+                        <br />
+                        <button onClick={() => { sendOTP() }}>Send</button>
+
+                    </>
+                    }
+                    {isMailSent && <>
+                        <label htmlFor="otp">OTP</label>
+                        <input type="text" id="otp" onChange={(e) => { setOTP(e.target.value) }} />
+                        <br />
+                        <label htmlFor="password">password</label>
+                        <input type="text" id="password" onChange={(e) => { setPassword(e.target.value) }} />
+                        <br />
+                        <button onClick={() => { resetPassword() }}>Send</button>
+                    </>
+                    }
+
+                </div>
+            </div>
         </>
     )
 }
