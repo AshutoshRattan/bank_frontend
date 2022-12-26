@@ -15,7 +15,7 @@ import { useGlobalContext } from '../context/GlobalContext';
 const NavBar = () => {
     let navigate = useNavigate()
     let name = "ashutosh"
-    let { setLoggedIn } = useGlobalContext()
+    let { setLoggedIn, isLoggedIn } = useGlobalContext()
     let logOut = () => {
         console.log("logged out")
         localStorage.removeItem('token')
@@ -26,19 +26,29 @@ const NavBar = () => {
         <Navbar bg="primary" variant='dark' expand="lg">
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav ">
-                <Nav className="ms-left">
-                    <Nav.Link as={Link} to="/Home">Home</Nav.Link>
-                    <Nav.Link as={Link} to="/transactions">Transactions</Nav.Link>
-                    <Nav.Link as={Link} to="/transfer">Transfer</Nav.Link>
-                    <Nav.Link as={Link} to="/beneficiary">Beneficiary</Nav.Link>
-
-                </Nav>
-
+                {isLoggedIn ?
+                    <Nav className="ms-left">
+                        <Nav.Link as={Link} to="/Home">Home</Nav.Link>
+                        <Nav.Link as={Link} to="/transactions">Transactions</Nav.Link>
+                        <Nav.Link as={Link} to="/transfer">Transfer</Nav.Link>
+                        <Nav.Link as={Link} to="/beneficiary">Beneficiary</Nav.Link>
+                    </Nav>
+                    : null
+                }
                 <Nav className="ms-auto me-2">
-                    <NavDropdown title="Settings" id="navbarScrollingDropdown" className='me-3'>
-                        <NavDropdown.Item as={Link} to="/changePassword">Change Password</NavDropdown.Item>
-                    </NavDropdown>
-                    <Navbar.Text onClick={() => { logOut() }}>Logout</Navbar.Text>
+                    {isLoggedIn ?
+                        <>
+                            <NavDropdown title="Settings" id="navbarScrollingDropdown" className='me-3'>
+                                <NavDropdown.Item as={Link} to="/changePassword">Change Password</NavDropdown.Item>
+                            </NavDropdown>
+                            <Navbar.Text onClick={() => { logOut() }}>Logout</Navbar.Text>
+                        </>
+                        :
+                        <>
+                            <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                            <Nav.Link as={Link} to="/signup">Signup</Nav.Link>
+                        </>
+                    }
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
