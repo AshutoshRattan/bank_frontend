@@ -11,7 +11,7 @@ import Transactions from './Pages/Transactions'
 import Beneficiary from './Pages/Beneficiary'
 import ForgotPassword from './Pages/ForgotPassword'
 import ChangePassword from './Pages/ChangePassword'
-// import AllTransactions from './Pages/AllTransactions'
+import AllTransactions from './Pages/AllTransactions'
 import './App.css'
 
 
@@ -28,7 +28,7 @@ function App() {
         <Route path='/transactions' element={<Guard> <Transactions /> </Guard>} />
         <Route path='/beneficiary' element={<Guard> <Beneficiary /> </Guard>} />
         <Route path='/changePassword' element={<Guard> <ChangePassword /> </Guard>} />
-        {/* <Route path='/admin/transactions' element={<AdminGuard> <AllTransactions /> </AdminGuard>} /> */}
+        <Route path='/admin/transactions' element={<AdminGuard> <AllTransactions /> </AdminGuard>} />
       </Routes>
     </Router>
   )
