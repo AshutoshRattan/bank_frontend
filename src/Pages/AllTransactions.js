@@ -9,26 +9,14 @@ import NavBar from '../components/NavBar'
 import { Toast } from 'bootstrap';
 
 const AllTransactions = () => {
-    let [name, setName] = useState('')
-    let [email, setEmail] = useState('')
     let [id, setId] = useState('')
     let [transaction, setTransactions] = useState([])
     let token = localStorage.getItem('token').replace('"', '').replace('"', '')
     let page = useRef(1)
     let max = useRef(10)
 
-    let allTransactions = async (token, limit = 10, page = 1) => {
+    let allTransactions = async (token, page = 1, limit = 10) => {
         let params = { limit, page }
-        if (name != '') {
-            params.name = name
-        }
-        if (email != '') {
-            if (!validator.isEmail(email)) {
-                toast("please type correct email")
-                return
-            }
-            params.email = email
-        }
         if (id != '') {
             params.id = id
         }
@@ -42,59 +30,47 @@ const AllTransactions = () => {
             max.current = Math.ceil(res.data.len / 10)
         }
         catch (e) {
-
+            console.log(e)
         }
     }
 
-    useEffect(() => {
-        allTransactions()
-    }, [])
 
-    useEffect(() => { // when query changes
-        console.log("change")
+    useEffect(() => { // when query changes and init render
         page.current = 1
         const getData = setTimeout(() => {
-            allTransactions(token, page.current)
+            allTransactions(token, page = page.current)
         }, 1000)
         return () => clearTimeout(getData)
 
-    }, [name, email, id])
+    }, [id])
 
     let fetchNext = async (page) => {
         if (page.current >= max.current) return
-        console.log(page.current, max.current)
         if (token == undefined) return
         page.current = page.current + 1
-        allTransactions(token, page.current)
+        allTransactions(token, page = page.current)
     }
 
     let fetchPrev = async (page) => {
         if (page.current == 1) return // will expand
         if (token == undefined) return
-        console.log("here")
         page.current = page.current - 1
-        allTransactions(token, page.current)
+        allTransactions(token, page = page.current)
     }
 
     return (
         <>
             <NavBar />
             <ToastContainer />
-            <div className="parent" style={{ 'height': '50vh' }}>
+            <div className="parent" style={{ 'height': '50vh'}}>
 
                 <div>
-                    <label htmlFor="name">name</label>
-                    <input type="text" id="name" onChange={(e) => { setName(e.target.value) }} />
-                    <br />
-                    <label htmlFor="email">email</label>
-                    <input type="text" id="email" onChange={(e) => { setEmail(e.target.value) }} />
-                    <br />
                     <label htmlFor="id">id</label>
                     <input type="text" id="id" onChange={(e) => { setId(e.target.value) }} />
                 </div>
 
                 <div>
-                    <table style={{ width: "100%" }}>
+                    <table style={{ width: "100%"}}>
                         <thead>
                             <tr>
                                 <th>From</th>
