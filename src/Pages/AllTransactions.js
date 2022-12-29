@@ -58,6 +58,14 @@ const AllTransactions = () => {
         allTransactions(token, page = page.current)
     }
 
+    let copy = async (e) => {
+        console.log(e.target.innerText)
+        let ID = e.target.innerText // target.__reactFiber$tlhze9l0dff.sibling.alternate
+        navigator.clipboard.writeText(ID);
+        toast(`copied ${ID}`)
+
+    }
+
     return (
         <>
             <NavBar />
@@ -84,8 +92,8 @@ const AllTransactions = () => {
                             {transaction.map((transaction) => {
                                 return (
                                     <tr key={transaction.createdAt}>
-                                        <td>{transaction.from}</td>
-                                        <td>{transaction.to}</td>
+                                        <td onClick={(e) => { copy(e) }}>{transaction.from}</td>
+                                        <td onClick={(e) => { copy(e) }}>{transaction.to}</td>
                                         <td>{transaction.amount}</td>
                                         <td>{transaction.createdAt}</td>
                                     </tr>
