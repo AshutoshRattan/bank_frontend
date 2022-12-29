@@ -83,7 +83,7 @@ const AllTransactions = () => {
                     <label htmlFor="id">id</label>
                     <input type="text" id="id" onChange={(e) => { setId(e.target.value) }} ref={idInput} />
                     <br />
-                    <button onClick={() => {clear()}}>clear</button>
+                    <button onClick={() => {clear()}} style={{'margin-left': "14px", "margin-top": '5px'}}>clear</button>
                 </div>
 
                 <div style={{width: "70%"}}>
