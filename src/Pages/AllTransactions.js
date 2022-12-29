@@ -69,7 +69,7 @@ const AllTransactions = () => {
                     <input type="text" id="id" onChange={(e) => { setId(e.target.value) }} />
                 </div>
 
-                <div>
+                <div style={{width: "70%"}}>
                     <table style={{ width: "100%"}}>
                         <thead>
                             <tr>
