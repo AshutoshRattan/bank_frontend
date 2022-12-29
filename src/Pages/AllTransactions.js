@@ -14,10 +14,11 @@ const AllTransactions = () => {
     let token = localStorage.getItem('token').replace('"', '').replace('"', '')
     let page = useRef(1)
     let max = useRef(10)
+    let idInput = useRef()
 
     let allTransactions = async (token, page = 1, limit = 10) => {
         let params = { limit, page }
-        if (id != '') {
+        if (id != '' && id.match(/^[0-9a-fA-F]{24}$/)) {
             params.id = id
         }
         try {
@@ -39,7 +40,7 @@ const AllTransactions = () => {
         page.current = 1
         const getData = setTimeout(() => {
             allTransactions(token, page = page.current)
-        }, 1000)
+        }, 500)
         return () => clearTimeout(getData)
 
     }, [id])
@@ -66,6 +67,12 @@ const AllTransactions = () => {
 
     }
 
+    let clear = async () => {
+        setId('')
+        idInput.current.value = ''
+        console.log(idInput)
+    }
+
     return (
         <>
             <NavBar />
@@ -74,7 +81,9 @@ const AllTransactions = () => {
 
                 <div>
                     <label htmlFor="id">id</label>
-                    <input type="text" id="id" onChange={(e) => { setId(e.target.value) }} />
+                    <input type="text" id="id" onChange={(e) => { setId(e.target.value) }} ref={idInput} />
+                    <br />
+                    <button onClick={() => {clear()}}>clear</button>
                 </div>
 
                 <div style={{width: "70%"}}>
