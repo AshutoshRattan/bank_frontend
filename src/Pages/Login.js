@@ -6,9 +6,10 @@ import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios';
 import { useGlobalContext } from '../context/GlobalContext';
 import NavBar from '../components/NavBar';
+import jwt_decode from "jwt-decode"
 
 const Home = () => {
-    let { isLoggedIn, setLoggedIn } = useGlobalContext()
+    let { isLoggedIn, setLoggedIn, setAdmin } = useGlobalContext()
     let [email, setEmail] = useState('')
     let [password, setPassword] = useState('')
 
@@ -26,6 +27,8 @@ const Home = () => {
             // console.log(res)
             localStorage.setItem('token', JSON.stringify(res.data.JWT))
             setLoggedIn(true)
+            let {role } = jwt_decode(res.data.JWT)
+            setAdmin(role == 'admin' ? true : false)
         }
         catch (e) {
             // console.log(e)

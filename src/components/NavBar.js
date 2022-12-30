@@ -15,11 +15,12 @@ import { useGlobalContext } from '../context/GlobalContext';
 const NavBar = () => {
     let navigate = useNavigate()
     let name = "ashutosh"
-    let { setLoggedIn, isLoggedIn } = useGlobalContext()
+    let { setLoggedIn, isLoggedIn, isAdmin, setAdmin } = useGlobalContext()
     let logOut = () => {
         console.log("logged out")
         localStorage.removeItem('token')
         setLoggedIn(false)
+        setAdmin(false)
         navigate("/login")
     }
     return (
@@ -36,6 +37,17 @@ const NavBar = () => {
                     : null
                 }
                 <Nav className="ms-auto me-2">
+                    {isAdmin ?
+                    <>
+                            <NavDropdown title="Admin" id="navbarScrollingDropdown" className='me-3'>
+                                <NavDropdown.Item as={Link} to="/admin/transactions">All Transactions</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/admin/users">All Users</NavDropdown.Item>
+                            </NavDropdown>
+                    </>
+                    :
+                    null
+                }
+
                     {isLoggedIn ?
                         <>
                             <NavDropdown title="Settings" id="navbarScrollingDropdown" className='me-3'>
