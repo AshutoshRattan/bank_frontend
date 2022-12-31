@@ -12,6 +12,7 @@ import Beneficiary from './Pages/Beneficiary'
 import ForgotPassword from './Pages/ForgotPassword'
 import ChangePassword from './Pages/ChangePassword'
 import AllTransactions from './Pages/AllTransactions'
+import AllUsers from './Pages/AllUsers'
 import './App.css'
 
 
@@ -29,6 +30,7 @@ function App() {
         <Route path='/beneficiary' element={<Guard> <Beneficiary /> </Guard>} />
         <Route path='/changePassword' element={<Guard> <ChangePassword /> </Guard>} />
         <Route path='/admin/transactions' element={<AdminGuard> <AllTransactions /> </AdminGuard>} />
+        <Route path='/admin/users' element={<AdminGuard> <AllUsers /> </AdminGuard>} />
       </Routes>
     </Router>
   )
