@@ -45,7 +45,6 @@ const Home = () => {
                 <div>
                     <p>welcome back {name}</p>
                     <p>your balance is {balance}</p>
-                    <Link to={'/admin/transactions'}> abc </Link>
                 </div>
             </div>
         </>
