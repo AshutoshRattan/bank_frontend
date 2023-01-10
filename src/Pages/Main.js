@@ -12,9 +12,8 @@ const Main = ({ children, ...rest }) => {
 
         return flag
     }
-    let {isLoggedIn} = useGlobalContext()
 
-    return (isLoggedIn ? <Navigate to='/home' /> : <Navigate to='/login' />
+    return ( localStorage.getItem("token") ? <Navigate to='/home' /> : <Navigate to='/login' />
     );
 };
 

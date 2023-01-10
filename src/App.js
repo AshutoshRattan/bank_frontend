@@ -13,6 +13,7 @@ import ForgotPassword from './Pages/ForgotPassword'
 import ChangePassword from './Pages/ChangePassword'
 import AllTransactions from './Pages/AllTransactions'
 import AllUsers from './Pages/AllUsers'
+import Test from './Pages/Test'
 import './App.css'
 
 
@@ -21,6 +22,7 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' element={<Main />} />
+        {/* <Route path='/test' element={<Test />} /> */}
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/forgotPassword' element={<ForgotPassword />} />

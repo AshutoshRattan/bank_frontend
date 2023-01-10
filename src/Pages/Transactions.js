@@ -9,14 +9,18 @@ import NavBar from '../components/NavBar'
 import { useGlobalContext } from '../context/GlobalContext';
 
 const Transactions = () => {
-    let { beneficiaryList , id, name} = useGlobalContext()
+    let { beneficiaryList, id, name, setBeneficiaryList} = useGlobalContext()
     let [recentTransactions, setRecentTransactions] = useState([])
     let page = useRef(1)
     let limit = useRef(10)
     let max = useRef(0)
 
+    console.count("Transactions render no:")
+
     let checkIfBeneficiary = (beneficiaryList, data) => {
-        data.forEach(obj => {
+        let temp = data
+        console.log(beneficiaryList)
+        temp.forEach(obj => {
             beneficiaryList.forEach(obj2 => {
                 if (obj.to == obj2.user2){
                     obj.to = obj2.alias
@@ -31,7 +35,8 @@ const Transactions = () => {
                     obj.from = name
                 }
             })
-        });
+        })
+        setRecentTransactions(temp)
     }
 
     let fetchTransactions = async (token, page = 1, limit = 10) => {
@@ -41,7 +46,6 @@ const Transactions = () => {
                 params: {limit, page}
             })
             checkIfBeneficiary(beneficiaryList, res.data.his)
-            console.log(res.data.his)
             setRecentTransactions(res.data.his)
             max.current = Math.ceil(res.data.len / 10)
         }
