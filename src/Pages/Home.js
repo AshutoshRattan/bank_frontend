@@ -46,6 +46,7 @@ const Home = () => {
                     <p>welcome back {name}</p>
                     <p>your balance is {balance}</p>
                 </div>
+                {/* <Link to={'/test'}>click</Link> */}
             </div>
         </>
     )

@@ -14,13 +14,15 @@ const AppProvider = ({ children }) => {
     let [beneficiaryList, setBeneficiaryList] = useState([])
 
     let token = localStorage.getItem("token")
-
+    console.count("GlobalContext render start no:")
     let getBeneficeries = async (token) => {
         try {
+            console.log("benificery start")
             let res = await axios.get('http://localhost:3000/api/v1/User/getAliases', {
                 headers: { "Authorization": `Bearer ${token}` }
             })
             setBeneficiaryList(res.data.data)
+            console.log("benificery end")
         }
         catch (e) {
             // toast(e.response.data.msg)
@@ -28,21 +30,26 @@ const AppProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        console.count("in use effect")
+        console.count("use effect start")
         if (token) {
             console.log("logged In true")
-            let { exp, userId, role } = jwt_decode(token)
+            let { exp, userId, role, name } = jwt_decode(token)
             if (exp < (Date.now() / 1000)) {
                 localStorage.removeItem('token')
             }
+            setName(name)
             setAdmin(role == 'admin' ? true : false)
             setId(userId)
+            console.log(42)
             getBeneficeries(localStorage.getItem('token').replace('"', '').replace('"', ''))
+            console.log(44)
+            console.count("use effect end")
         }
-        else { // when i refresh i go here
+        else {
             console.log("logged In false")
         }
     }, [localStorage.getItem("token")]) // will this work if i use a var here
+    console.count("GlobalContext render end no:")
     return (
         <AppContext.Provider
             value={{
