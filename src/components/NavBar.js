@@ -15,11 +15,10 @@ import { useGlobalContext } from '../context/GlobalContext';
 const NavBar = () => {
     let navigate = useNavigate()
     let name = "ashutosh"
-    let { setLoggedIn, isLoggedIn, isAdmin, setAdmin } = useGlobalContext()
+    let { isAdmin, setAdmin } = useGlobalContext()
     let logOut = () => {
         console.log("logged out")
         localStorage.removeItem('token')
-        setLoggedIn(false)
         setAdmin(false)
         navigate("/login")
     }
@@ -27,7 +26,7 @@ const NavBar = () => {
         <Navbar bg="primary" variant='dark' expand="lg">
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav ">
-                {isLoggedIn ?
+                {localStorage.getItem("token") ?
                     <Nav className="ms-left">
                         <Nav.Link as={Link} to="/Home">Home</Nav.Link>
                         <Nav.Link as={Link} to="/transactions">Transactions</Nav.Link>
@@ -48,7 +47,7 @@ const NavBar = () => {
                     null
                 }
 
-                    {isLoggedIn ?
+                    {localStorage.getItem("token") ?
                         <>
                             <NavDropdown title="Settings" id="navbarScrollingDropdown" className='me-3'>
                                 <NavDropdown.Item as={Link} to="/changePassword">Change Password</NavDropdown.Item>

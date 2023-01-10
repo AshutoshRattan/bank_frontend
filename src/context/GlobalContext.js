@@ -9,9 +9,11 @@ const AppProvider = ({ children }) => {
     let [email, setEmail] = useState('nul')
     let [id, setId] = useState('')
     let [balance, setBalance] = useState(0)
-    let [isLoggedIn, setLoggedIn] = useState(false)
+    // let [isLoggedIn, setLoggedIn] = useState(false)
     let [isAdmin, setAdmin] = useState(false)
     let [beneficiaryList, setBeneficiaryList] = useState([])
+
+    let token = localStorage.getItem("token")
 
     let getBeneficeries = async (token) => {
         try {
@@ -26,26 +28,21 @@ const AppProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        let token = localStorage.getItem('token')
-        if(!token) return
-        let {exp, userId, role} = jwt_decode(token)
-        if (exp < (Date.now() / 1000)) {
-            localStorage.removeItem('token')
-        }
-        setLoggedIn(localStorage.getItem('token') ? true : false)
-        setAdmin(role == 'admin' ? true : false)
-        setId(userId)
-    }, [])
-
-    useEffect(() => {
-        console.count("log")
-        if (isLoggedIn == true) {
-            console.count("logged In true")
+        console.count("in use effect")
+        if (token) {
+            console.log("logged In true")
+            let { exp, userId, role } = jwt_decode(token)
+            if (exp < (Date.now() / 1000)) {
+                localStorage.removeItem('token')
+            }
+            setAdmin(role == 'admin' ? true : false)
+            setId(userId)
             getBeneficeries(localStorage.getItem('token').replace('"', '').replace('"', ''))
         }
         else { // when i refresh i go here
+            console.log("logged In false")
         }
-    }, [isLoggedIn])
+    }, [localStorage.getItem("token")]) // will this work if i use a var here
     return (
         <AppContext.Provider
             value={{
@@ -55,8 +52,6 @@ const AppProvider = ({ children }) => {
                 setEmail,
                 balance,
                 setBalance,
-                isLoggedIn,
-                setLoggedIn,
                 beneficiaryList,
                 setBeneficiaryList,
                 id,

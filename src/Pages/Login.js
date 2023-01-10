@@ -9,7 +9,7 @@ import NavBar from '../components/NavBar';
 import jwt_decode from "jwt-decode"
 
 const Home = () => {
-    let { isLoggedIn, setLoggedIn, setAdmin } = useGlobalContext()
+    let {setAdmin } = useGlobalContext()
     let [email, setEmail] = useState('')
     let [password, setPassword] = useState('')
 
@@ -26,7 +26,6 @@ const Home = () => {
             })
             // console.log(res)
             localStorage.setItem('token', JSON.stringify(res.data.JWT))
-            setLoggedIn(true)
             let {role } = jwt_decode(res.data.JWT)
             setAdmin(role == 'admin' ? true : false)
         }
@@ -41,7 +40,7 @@ const Home = () => {
             <ToastContainer />
             <div className='parent'>
                 <div>
-                    {isLoggedIn ? <Navigate to="/home" /> : null}
+                    {localStorage.getItem("token") ? <Navigate to="/home" /> : null}
                     <label htmlFor="">Email</label>
                     <input type="email" id='email' onChange={(e) => { setEmail(e.target.value) }} />
                     <br />

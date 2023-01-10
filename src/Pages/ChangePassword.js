@@ -10,7 +10,6 @@ import { useGlobalContext } from '../context/GlobalContext';
 
 const ChangePassword = (token) => {
     let navigate = useNavigate()
-    let { setLoggedIn } = useGlobalContext()
     let [password, setPassword] = useState('')
     let [newPassword, setNewPassword] = useState('')
 
@@ -26,7 +25,6 @@ const ChangePassword = (token) => {
 
             setTimeout(() => {
                 localStorage.removeItem('token')
-                setLoggedIn(false)
                 navigate("/login")
 
             }, 2000)
