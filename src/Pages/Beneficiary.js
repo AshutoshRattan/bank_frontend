@@ -16,7 +16,7 @@ const Beneficiary = () => {
 
     let addBeneficiary = async (token) => {
         try {
-            let res = await axios.post(`${process.env.BACKEND + '/api/v1/User/createAlias'}`, {
+            let res = await axios.post(`${process.env.REACT_APP_BACKEND + '/api/v1/User/createAlias'}`, {
                 'aliasID': id,
                 'alias': name
             }, {
@@ -35,7 +35,7 @@ const Beneficiary = () => {
 
     // let getBeneficeries = async (token) => {
     //     try{
-    //         let res = await axios.get(`${process.env.BACKEND + '/api/v1/User/getAliases', {
+    //         let res = await axios.get(`${process.env.REACT_APP_BACKEND + '/api/v1/User/getAliases', {
     //             headers: { "Authorization": `Bearer ${token}` }
     //         })
     //         setBeneficiaryList(res.data.data)

@@ -22,7 +22,7 @@ const AllTransactions = () => {
             params.query = query
         }
         try {
-            let res = await axios.get(`${process.env.BACKEND + '/api/v1/Admin/users'}`, {
+            let res = await axios.get(`${process.env.REACT_APP_BACKEND + '/api/v1/Admin/users'}`, {
                 headers: { "Authorization": `Bearer ${token}` },
                 params
             })

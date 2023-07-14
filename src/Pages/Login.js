@@ -20,11 +20,11 @@ const Home = () => {
         }
 
         try {
-            let res = await axios.post(`${process.env.BACKEND + '/api/v1/User/login'}`, {
+            let res = await axios.post(`${process.env.REACT_APP_BACKEND + '/api/v1/User/login'}`, {
                 'email': email,
                 'password': password
             })
-            console.log(`${process.env.BACKEND + '/api/v1/User/login'}`)
+            console.log(`${process.env.REACT_APP_BACKEND + '/api/v1/User/login'}`)
             localStorage.setItem('token', JSON.stringify(res.data.JWT))
             let { role } = jwt_decode(res.data.JWT)
             setAdmin(role == 'admin' ? true : false)

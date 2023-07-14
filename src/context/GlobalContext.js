@@ -18,7 +18,7 @@ const AppProvider = ({ children }) => {
     let getBeneficeries = async (token) => {
         try {
             console.log("benificery start")
-            let res = await axios.get(`${process.env.BACKEND + '/api/v1/User/getAliases'}`, {
+            let res = await axios.get(`${process.env.REACT_APP_BACKEND + '/api/v1/User/getAliases'}`, {
                 headers: { "Authorization": `Bearer ${token}` }
             })
             setBeneficiaryList(res.data.data)

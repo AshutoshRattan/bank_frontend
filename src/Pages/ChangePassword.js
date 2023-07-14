@@ -15,7 +15,7 @@ const ChangePassword = (token) => {
 
     let changePassword = async (token) => {
         try {
-            let res = await axios.post(`${process.env.BACKEND + '/api/v1/User/changePassword'}`, {
+            let res = await axios.post(`${process.env.REACT_APP_BACKEND + '/api/v1/User/changePassword'}`, {
                 password,
                 newPassword
             }, {

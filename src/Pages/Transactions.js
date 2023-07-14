@@ -41,7 +41,7 @@ const Transactions = () => {
 
     let fetchTransactions = async (token, page = 1, limit = 10) => {
         try {
-            let res = await axios.get(`${process.env.BACKEND + '/api/v1/Money/transactions'}`, {
+            let res = await axios.get(`${process.env.REACT_APP_BACKEND + '/api/v1/Money/transactions'}`, {
                 headers: { "Authorization": `Bearer ${token}` },
                 params: { limit, page }
             })

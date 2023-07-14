@@ -22,7 +22,7 @@ const AllTransactions = () => {
             params.id = id
         }
         try {
-            let res = await axios.get(`${process.env.BACKEND + '/api/v1/Admin/transactions'}`, {
+            let res = await axios.get(`${process.env.REACT_APP_BACKEND + '/api/v1/Admin/transactions'}`, {
                 // Money/transactions
                 headers: { "Authorization": `Bearer ${token}` },
                 params
