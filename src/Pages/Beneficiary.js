@@ -16,7 +16,7 @@ const Beneficiary = () => {
 
     let addBeneficiary = async (token) => {
         try {
-            let res = await axios.post('http://localhost:3000/api/v1/User/createAlias', {
+            let res = await axios.post(`${process.env.BACKEND + '/api/v1/User/createAlias'}`, {
                 'aliasID': id,
                 'alias': name
             }, {
@@ -35,7 +35,7 @@ const Beneficiary = () => {
 
     // let getBeneficeries = async (token) => {
     //     try{
-    //         let res = await axios.get('http://localhost:3000/api/v1/User/getAliases', {
+    //         let res = await axios.get(`${process.env.BACKEND + '/api/v1/User/getAliases', {
     //             headers: { "Authorization": `Bearer ${token}` }
     //         })
     //         setBeneficiaryList(res.data.data)
@@ -67,7 +67,7 @@ const Beneficiary = () => {
         <>
             <NavBar />
             <ToastContainer />
-            <div className="parent" style={{'height':'50vh'}}>
+            <div className="parent" style={{ 'height': '50vh' }}>
 
                 <div>
                     <label htmlFor="name">Name</label>

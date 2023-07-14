@@ -21,7 +21,7 @@ const Signup = () => {
         }
 
         try {
-            let res = await axios.post('http://localhost:3000/api/v1/User/createAccount', {
+            let res = await axios.post(`${process.env.BACKEND + '/api/v1/User/createAccount'}`, {
                 'name': name,
                 'email': email,
                 'password': password

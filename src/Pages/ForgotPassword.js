@@ -22,7 +22,7 @@ const ForgotPassword = () => {
             return
         }
         try {
-            let res = await axios.post('http://localhost:3000/api/v1/User/forgotPasswordOTP', {
+            let res = await axios.post(`${process.env.BACKEND + '/api/v1/User/forgotPasswordOTP'}`, {
                 "email": email
             })
             setMailSent(true)
@@ -44,12 +44,12 @@ const ForgotPassword = () => {
         }
 
         try {
-            let res = await axios.post('http://localhost:3000/api/v1/User/forgotPassword',
-                {
-                    "email": email,
-                    "OTP": OTP,
-                    "password": password
-                })
+            let res = await axios.post(`${process.env.BACKEND + '/api/v1/User/forgotPassword'}`,
+            {
+                "email": email,
+                "OTP": OTP,
+                "password": password
+            })
             // setMailSent(true)
             toast("password sucessfully resetted")
             setTimeout(() => {

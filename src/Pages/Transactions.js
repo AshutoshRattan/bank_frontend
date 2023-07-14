@@ -9,7 +9,7 @@ import NavBar from '../components/NavBar'
 import { useGlobalContext } from '../context/GlobalContext';
 
 const Transactions = () => {
-    let { beneficiaryList, id, name, setBeneficiaryList} = useGlobalContext()
+    let { beneficiaryList, id, name, setBeneficiaryList } = useGlobalContext()
     let [recentTransactions, setRecentTransactions] = useState([])
     let page = useRef(1)
     let limit = useRef(10)
@@ -22,10 +22,10 @@ const Transactions = () => {
         console.log(beneficiaryList)
         temp.forEach(obj => {
             beneficiaryList.forEach(obj2 => {
-                if (obj.to == obj2.user2){
+                if (obj.to == obj2.user2) {
                     obj.to = obj2.alias
                 }
-                if(obj.to == id){
+                if (obj.to == id) {
                     obj.to = name
                 }
                 if (obj.from == obj2.user2) {
@@ -40,16 +40,16 @@ const Transactions = () => {
     }
 
     let fetchTransactions = async (token, page = 1, limit = 10) => {
-        try{
-            let res = await axios.get('http://localhost:3000/api/v1/Money/transactions', {
+        try {
+            let res = await axios.get(`${process.env.BACKEND + '/api/v1/Money/transactions'}`, {
                 headers: { "Authorization": `Bearer ${token}` },
-                params: {limit, page}
+                params: { limit, page }
             })
             checkIfBeneficiary(beneficiaryList, res.data.his)
             setRecentTransactions(res.data.his)
             max.current = Math.ceil(res.data.len / 10)
         }
-        catch(e){
+        catch (e) {
             toast(e.response.data)
         }
     }
@@ -62,16 +62,16 @@ const Transactions = () => {
     }, [])
 
     let fetchNext = async (page) => {
-        if(page.current >= max.current) return
+        if (page.current >= max.current) return
         console.log(page.current, max.current)
         let token = localStorage.getItem("token")
         if (token == undefined) return
         page.current = page.current + 1
         fetchTransactions(token.replace('"', '').replace('"', ''), page.current)
     }
-    
+
     let fetchPrev = async (page) => {
-        if(page.current == 1) return // will expand
+        if (page.current == 1) return // will expand
         console.log("in fetchprev")
         let token = localStorage.getItem("token")
         if (token == undefined) return
@@ -82,32 +82,32 @@ const Transactions = () => {
         <>
             <NavBar />
             <ToastContainer />
-            <table style={{width:"100%"}}>
+            <table style={{ width: "100%" }}>
                 <thead>
-                <tr>
-                    <th>From</th>
-                    <th>To</th>
-                    <th>Amount</th>
-                    <th>Time</th>
-                </tr>
+                    <tr>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Amount</th>
+                        <th>Time</th>
+                    </tr>
                 </thead>
 
                 <tbody>
-                {recentTransactions.map((transaction) => {
-                    return(
-                        <tr key={transaction.createdAt}>
-                            <td>{transaction.from}</td>
-                            <td>{transaction.to}</td>
-                            <td>{transaction.amount}</td>
-                            <td>{transaction.createdAt}</td>
-                        </tr>
-                    )
-                })}
+                    {recentTransactions.map((transaction) => {
+                        return (
+                            <tr key={transaction.createdAt}>
+                                <td>{transaction.from}</td>
+                                <td>{transaction.to}</td>
+                                <td>{transaction.amount}</td>
+                                <td>{transaction.createdAt}</td>
+                            </tr>
+                        )
+                    })}
                 </tbody>
             </table>
-            <button onClick={() => {fetchPrev(page) }}> {"<"} </button>
-            <p style={{display: "inline"}}>{page.current} of {max.current}</p>
-            <button onClick={() => {fetchNext(page)}}> {">"} </button>
+            <button onClick={() => { fetchPrev(page) }}> {"<"} </button>
+            <p style={{ display: "inline" }}>{page.current} of {max.current}</p>
+            <button onClick={() => { fetchNext(page) }}> {">"} </button>
         </>
 
     )

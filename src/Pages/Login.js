@@ -9,7 +9,7 @@ import NavBar from '../components/NavBar';
 import jwt_decode from "jwt-decode"
 
 const Home = () => {
-    let {setAdmin } = useGlobalContext()
+    let { setAdmin } = useGlobalContext()
     let [email, setEmail] = useState('')
     let [password, setPassword] = useState('')
 
@@ -20,13 +20,13 @@ const Home = () => {
         }
 
         try {
-            let res = await axios.post('http://localhost:3000/api/v1/User/login', {
+            let res = await axios.post(`${process.env.BACKEND + '/api/v1/User/login'}`, {
                 'email': email,
                 'password': password
             })
-            // console.log(res)
+            console.log(`${process.env.BACKEND + '/api/v1/User/login'}`)
             localStorage.setItem('token', JSON.stringify(res.data.JWT))
-            let {role } = jwt_decode(res.data.JWT)
+            let { role } = jwt_decode(res.data.JWT)
             setAdmin(role == 'admin' ? true : false)
         }
         catch (e) {

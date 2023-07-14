@@ -16,7 +16,7 @@ const Home = () => {
 
     let getBal = async (token) => {
         try {
-            let res = await axios.get('http://localhost:3000/api/v1/Money/balance', {
+            let res = await axios.get(`${process.env.BACKEND + '/api/v1/Money/balance'}`, {
                 headers: { "Authorization": `Bearer ${token}` }
             })
             setBalance(res.data.bal)
@@ -32,7 +32,7 @@ const Home = () => {
 
     let transfer = async (token) => {
         try {
-            let res = await axios.post('http://localhost:3000/api/v1/Money/transfer', {
+            let res = await axios.post(`${process.env.BACKEND + '/api/v1/Money/transfer'}`, {
                 'to': to,
                 'amount': amount
             }, {

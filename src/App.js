@@ -15,6 +15,7 @@ import AllTransactions from './Pages/AllTransactions'
 import AllUsers from './Pages/AllUsers'
 import Test from './Pages/Test'
 import './App.css'
+require('dotenv').config();
 
 
 function App() {

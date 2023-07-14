@@ -22,7 +22,7 @@ const AllTransactions = () => {
             params.id = id
         }
         try {
-            let res = await axios.get("http://localhost:3000/api/v1/Admin/transactions", {
+            let res = await axios.get(`${process.env.BACKEND + '/api/v1/Admin/transactions'}`, {
                 // Money/transactions
                 headers: { "Authorization": `Bearer ${token}` },
                 params
@@ -77,17 +77,17 @@ const AllTransactions = () => {
         <>
             <NavBar />
             <ToastContainer />
-            <div className="parent" style={{ 'height': '50vh'}}>
+            <div className="parent" style={{ 'height': '50vh' }}>
 
                 <div>
                     <label htmlFor="id">id</label>
                     <input type="text" id="id" onChange={(e) => { setId(e.target.value) }} ref={idInput} />
                     <br />
-                    <button onClick={() => {clear()}} style={{'margin-left': "14px", "margin-top": '5px'}}>clear</button>
+                    <button onClick={() => { clear() }} style={{ 'margin-left': "14px", "margin-top": '5px' }}>clear</button>
                 </div>
 
-                <div style={{width: "70%"}}>
-                    <table style={{ width: "100%"}}>
+                <div style={{ width: "70%" }}>
+                    <table style={{ width: "100%" }}>
                         <thead>
                             <tr>
                                 <th>From</th>

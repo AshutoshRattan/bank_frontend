@@ -18,11 +18,11 @@ const AllTransactions = () => {
 
     let allUsers = async (token, page = 1, limit = 10) => {
         let params = { limit, page }
-        if(query){
+        if (query) {
             params.query = query
         }
         try {
-            let res = await axios.get("http://localhost:3000/api/v1/Admin/users", {
+            let res = await axios.get(`${process.env.BACKEND + '/api/v1/Admin/users'}`, {
                 headers: { "Authorization": `Bearer ${token}` },
                 params
             })
@@ -64,7 +64,7 @@ const AllTransactions = () => {
         toast(`copied ${ID}`)
 
     }
-    
+
     let clear = async () => {
         setQuery('')
         queryInput.current.value = ''
