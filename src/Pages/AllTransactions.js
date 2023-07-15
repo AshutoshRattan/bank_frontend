@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useGlobalContext } from '../context/GlobalContext';
 import NavBar from '../components/NavBar'
 import { Toast } from 'bootstrap';
+import ClipLoader from "react-spinners/ClipLoader";
 
 const AllTransactions = () => {
     let [id, setId] = useState('')
@@ -16,13 +17,20 @@ const AllTransactions = () => {
     let max = useRef(10)
     let idInput = useRef()
 
+    const override = {
+        display: "block",
+        margin: "15% auto",
+    };
+    let [loading, setLoading] = useState('true')
+
     let allTransactions = async (token, page = 1, limit = 10) => {
+        setLoading(true)
         let params = { limit, page }
         if (id != '' && id.match(/^[0-9a-fA-F]{24}$/)) {
             params.id = id
         }
         try {
-            let res = await axios.get("http://localhost:3000/api/v1/Admin/transactions", {
+            let res = await axios.get(`${process.env.REACT_APP_BACKEND + '/api/v1/Admin/transactions'}`, {
                 // Money/transactions
                 headers: { "Authorization": `Bearer ${token}` },
                 params
@@ -33,6 +41,7 @@ const AllTransactions = () => {
         catch (e) {
             console.log(e)
         }
+        setLoading(false)
     }
 
 
@@ -77,17 +86,26 @@ const AllTransactions = () => {
         <>
             <NavBar />
             <ToastContainer />
-            <div className="parent" style={{ 'height': '50vh'}}>
+            <div className="parent">
 
-                <div>
-                    <label htmlFor="id">id</label>
-                    <input type="text" id="id" onChange={(e) => { setId(e.target.value) }} ref={idInput} />
+                {loading ? < ClipLoader
+                    color="#36d7b7"
+                    loading={loading}
+                    cssOverride={override}
+                    size={150}
+                />  :
+
+                <div id='login'>
+                    <div className="evenly">
+                        <label htmlFor="id">id</label>
+                        <input type="text" id="id" onChange={(e) => { setId(e.target.value) }} ref={idInput} />
+                    </div>
                     <br />
-                    <button onClick={() => {clear()}} style={{'margin-left': "14px", "margin-top": '5px'}}>clear</button>
+                    <button onClick={() => { clear() }} style={{ 'margin-left': "14px", "margin-top": '5px' }}>clear</button>
                 </div>
-
-                <div style={{width: "70%"}}>
-                    <table style={{ width: "100%"}}>
+                &&
+                <div id='login'>
+                    <table >
                         <thead>
                             <tr>
                                 <th>From</th>
@@ -110,10 +128,13 @@ const AllTransactions = () => {
                             })}
                         </tbody>
                     </table>
-                    <button onClick={() => { fetchPrev(page) }}> {"<"} </button>
-                    <p style={{ display: "inline" }}>{page.current} of {max.current}</p>
-                    <button onClick={() => { fetchNext(page) }}> {">"} </button>
+                    <div>
+                        <button onClick={() => { fetchPrev(page) }}> {"<"} </button>
+                        <p style={{ display: "inline" }}>{page.current} of {max.current}</p>
+                        <button onClick={() => { fetchNext(page) }}> {">"} </button>
+                    </div>
                 </div>
+                }
             </div>
         </>
     )

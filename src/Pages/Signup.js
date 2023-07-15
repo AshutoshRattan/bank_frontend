@@ -7,12 +7,20 @@ import axios from 'axios';
 import { useGlobalContext } from '../context/GlobalContext';
 import NavBar from '../components/NavBar';
 import jwt_decode from "jwt-decode"
+import ClipLoader from "react-spinners/ClipLoader";
+
 
 const Signup = () => {
     let { setAdmin } = useGlobalContext()
     let [name, setName] = useState('')
     let [email, setEmail] = useState('')
     let [password, setPassword] = useState('')
+
+    const override = {
+        display: "block",
+        margin: "15% auto",
+    };
+    let [loading, setLoading] = useState(false);
 
     const submit = async () => {
         if (name == '' || !validator.isEmail(email) || password == '') {
@@ -21,7 +29,8 @@ const Signup = () => {
         }
 
         try {
-            let res = await axios.post('http://localhost:3000/api/v1/User/createAccount', {
+            setLoading(true)
+            let res = await axios.post(`${process.env.REACT_APP_BACKEND + '/api/v1/User/createAccount'}`, {
                 'name': name,
                 'email': email,
                 'password': password
@@ -35,6 +44,7 @@ const Signup = () => {
             // console.log(e)
             toast(e.response.data.msg)
         }
+        setLoading(false)
     }
 
     return (
@@ -43,19 +53,36 @@ const Signup = () => {
             <ToastContainer />
 
             <div className='parent'>
-                <div>
+                {loading ?
+                    <ClipLoader
+                        color="#36d7b7"
+                        loading={loading}
+                        cssOverride={override}
+                        size={150}
+                    />
+                    :
+                <div id='login'>
+                    <div className="evenly">
+                        <label htmlFor="name">Name</label>
+                        <input type="text" id='name' onChange={(e) => { setName(e.target.value) }} />
+
+                    </div>
+                    <br />
+                    <div className="evenly">
+                        <label htmlFor="email">Email</label>
+                        <input type="email" id='email' onChange={(e) => { setEmail(e.target.value) }} />
+
+                    </div>
+                    <br />
+                    <div className="evenly">
+                        <label htmlFor="password">Password</label>
+                        <input type="password" id='password' onChange={(e) => { setPassword(e.target.value) }} />
+
+                    </div>
                     {localStorage.getItem("token") ? <Navigate to="/home" /> : null}
-                    <label htmlFor="name">Name</label>
-                    <input type="text" id='name' onChange={(e) => { setName(e.target.value) }} />
-                    <br />
-                    <label htmlFor="email">Email</label>
-                    <input type="email" id='email' onChange={(e) => { setEmail(e.target.value) }} />
-                    <br />
-                    <label htmlFor="password">Password</label>
-                    <input type="password" id='password' onChange={(e) => { setPassword(e.target.value) }} />
                     <br />
                     <button type="submit" onClick={submit}>Submit</button>
-                </div>
+                </div>}
             </div>
         </>
     )

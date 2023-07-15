@@ -7,6 +7,7 @@ import axios from 'axios';
 import jwt_decode from "jwt-decode"
 import NavBar from '../components/NavBar'
 import { useGlobalContext } from '../context/GlobalContext';
+import ClipLoader from "react-spinners/ClipLoader";
 
 const AllTransactions = () => {
     let [query, setQuery] = useState('')
@@ -16,13 +17,20 @@ const AllTransactions = () => {
     let max = useRef(10)
     let queryInput = useRef()
 
+    const override = {
+        display: "block",
+        margin: "15% auto",
+    };
+    let [loading, setLoading] = useState('true')
+
     let allUsers = async (token, page = 1, limit = 10) => {
+        setLoading('true')
         let params = { limit, page }
-        if(query){
+        if (query) {
             params.query = query
         }
         try {
-            let res = await axios.get("http://localhost:3000/api/v1/Admin/users", {
+            let res = await axios.get(`${process.env.REACT_APP_BACKEND + '/api/v1/Admin/users'}`, {
                 headers: { "Authorization": `Bearer ${token}` },
                 params
             })
@@ -32,6 +40,7 @@ const AllTransactions = () => {
         catch (e) {
             console.log(e)
         }
+        setLoading(false)
     }
 
     useEffect(() => { // when query changes and init render
@@ -64,7 +73,7 @@ const AllTransactions = () => {
         toast(`copied ${ID}`)
 
     }
-    
+
     let clear = async () => {
         setQuery('')
         queryInput.current.value = ''
@@ -75,17 +84,26 @@ const AllTransactions = () => {
             <NavBar />
             <ToastContainer />
 
-            <div className="parent" style={{ 'height': '50vh' }}>
+            <div className="parent">
 
-                <div>
-                    <label htmlFor="query">Query</label>
-                    <input type="text" id="query" onChange={(e) => { setQuery(e.target.value) }} ref={queryInput} />
+                {loading ? < ClipLoader
+                    color="#36d7b7"
+                    loading={loading}
+                    cssOverride={override}
+                    size={150}
+                /> :
+
+                <div id='login'>
+                    <div className="evenly">
+                        <label htmlFor="query">Query</label>
+                        <input type="text" id="query" onChange={(e) => { setQuery(e.target.value) }} ref={queryInput} />
+                    </div>
                     <br />
-                    <button onClick={() => { clear() }} style={{ 'margin-left': "42px", "margin-top": '5px' }}>clear</button>
+                    <button onClick={() => { clear() }}>clear</button>
                 </div>
-
-                <div style={{ width: "70%" }}>
-                    <table style={{ width: "100%" }}>
+                &&
+                <div id='login'>
+                    <table>
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -108,10 +126,12 @@ const AllTransactions = () => {
                             })}
                         </tbody>
                     </table>
-                    <button onClick={() => { fetchPrev(page) }}> {"<"} </button>
-                    <p style={{ display: "inline" }}>{page.current} of {max.current}</p>
-                    <button onClick={() => { fetchNext(page) }}> {">"} </button>
-                </div>
+                    <div>
+                        <button onClick={() => { fetchPrev(page) }}> {"<"} </button>
+                        <p style={{ display: "inline" }}>{page.current} of {max.current}</p>
+                        <button onClick={() => { fetchNext(page) }}> {">"} </button>
+                    </div>
+                </div>}
             </div>
 
         </>

@@ -16,7 +16,7 @@ const Beneficiary = () => {
 
     let addBeneficiary = async (token) => {
         try {
-            let res = await axios.post('http://localhost:3000/api/v1/User/createAlias', {
+            let res = await axios.post(`${process.env.REACT_APP_BACKEND + '/api/v1/User/createAlias'}`, {
                 'aliasID': id,
                 'alias': name
             }, {
@@ -35,7 +35,7 @@ const Beneficiary = () => {
 
     // let getBeneficeries = async (token) => {
     //     try{
-    //         let res = await axios.get('http://localhost:3000/api/v1/User/getAliases', {
+    //         let res = await axios.get(`${process.env.REACT_APP_BACKEND + '/api/v1/User/getAliases', {
     //             headers: { "Authorization": `Bearer ${token}` }
     //         })
     //         setBeneficiaryList(res.data.data)
@@ -67,25 +67,36 @@ const Beneficiary = () => {
         <>
             <NavBar />
             <ToastContainer />
-            <div className="parent" style={{'height':'50vh'}}>
+            <div className="parent">
 
-                <div>
-                    <label htmlFor="name">Name</label>
-                    <input type="text" id='name' onChange={(e) => { setName(e.target.value) }} />
+                <div id='login'>
+                    <h4 style={{ 'padding-left': '40px', 'padding-right': '40px' }}>Add Benificery</h4>
+
+                    <div className="evenly">
+                        <label htmlFor="name">Name</label>
+                        <input type="text" id='name' onChange={(e) => { setName(e.target.value) }} />
+                    </div>
+
                     <br />
-                    <label htmlFor="id">Id</label>
-                    <input type="text" id='id' onChange={(e) => { setId(e.target.value) }} />
+
+                    <div className="evenly">
+                        <label htmlFor="id">Id</label>
+                        <input type="text" id='id' onChange={(e) => { setId(e.target.value) }} />
+                    </div>
+
                     <br />
+                    
                     <button onClick={() => {
                         addBeneficiary(
                             localStorage.getItem('token').replace('"', '').replace('"', ''))
                     }}>Submit</button>
                 </div>
-                <div>
-                    <table style={{ width: "100%" }}>
+                
+                <div id='login'>
+                    <table >
                         <thead>
                             <tr>
-                                <th>Beneficiary</th>
+                                <th>Beneficiary Name</th>
                                 <th>Id</th>
                             </tr>
                         </thead>
