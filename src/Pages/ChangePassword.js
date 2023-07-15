@@ -39,13 +39,18 @@ const ChangePassword = (token) => {
             <NavBar />
             <ToastContainer />
             <div className="parent">
-                <div>
-                    <label htmlFor="password">Password</label>
-                    <input type="password" id='password' onChange={(e) => { setPassword(e.target.value) }} />
+                <div id='login'>
+                    <div className="evenly">
+                        <label htmlFor="password">Password</label>
+                        <input type="password" id='password' onChange={(e) => { setPassword(e.target.value) }} />
+                    </div>
                     <br />
-                    <label htmlFor="newPassword">New Password</label>
-                    <input type="password" id='newPassword' onChange={(e) => { setNewPassword(e.target.value) }} />
+                    <div className="evenly">
+                        <label htmlFor="newPassword">New Password</label>
+                        <input type="password" id='newPassword' onChange={(e) => { setNewPassword(e.target.value) }} />
+                    </div>
                     <br />
+                    
                     <button onClick={() => { changePassword(localStorage.getItem("token").replace('"', '').replace('"', '')) }}>Submit</button>
                 </div>
             </div>
