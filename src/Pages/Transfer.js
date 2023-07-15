@@ -7,6 +7,7 @@ import axios from 'axios';
 import jwt_decode from "jwt-decode"
 import NavBar from '../components/NavBar'
 import { useGlobalContext } from '../context/GlobalContext';
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Home = () => {
     let { name, setName, email, setEmail, setBalance, balance } = useGlobalContext()
@@ -14,8 +15,15 @@ const Home = () => {
     let [to, setTo] = useState('')
     let [amount, setAmount] = useState(0)
 
+    const override = {
+        display: "block",
+        margin: "15% auto",
+    };
+    let [loading, setLoading] = useState('true');
+
     let getBal = async (token) => {
         try {
+            setLoading('true')
             let res = await axios.get(`${process.env.REACT_APP_BACKEND + '/api/v1/Money/balance'}`, {
                 headers: { "Authorization": `Bearer ${token}` }
             })
@@ -28,10 +36,12 @@ const Home = () => {
             //     return redirect("/login")
             // }
         }
+        setLoading(false)
     }
 
     let transfer = async (token) => {
         try {
+            setLoading(true)
             let res = await axios.post(`${process.env.REACT_APP_BACKEND + '/api/v1/Money/transfer'}`, {
                 'to': to,
                 'amount': amount
@@ -44,6 +54,7 @@ const Home = () => {
         catch (e) {
             toast(e.response.data.msg)
         }
+        setLoading(false)
     }
 
     useEffect(() => {
@@ -61,6 +72,13 @@ const Home = () => {
             <NavBar />
             <ToastContainer />
             <div className="parent">
+
+                {loading ? < ClipLoader
+                    color="#36d7b7"
+                    loading={loading}
+                    cssOverride={override}
+                    size={150}
+                /> :
                 <div id='login'>
                     <h4>Current balance: {balance}</h4>
                     <div className="evenly">
@@ -76,7 +94,7 @@ const Home = () => {
                     <button type="submit" onClick={() => {
                         transfer(localStorage.getItem("token").replace('"', '').replace('"', ''))
                     }}>transfer</button>
-                </div>
+                </div>}
             </div>
         </>
 
