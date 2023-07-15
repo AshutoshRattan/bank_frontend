@@ -73,21 +73,31 @@ const ForgotPassword = () => {
             <div className='parent'>
                 <div>
                     {!isMailSent && <>
-                        <label htmlFor="email">email</label>
-                        <input type="text" id="email" onChange={(e) => { setEmail(e.target.value) }} />
-                        <br />
-                        <button onClick={() => { sendOTP() }}>Send</button>
+                        <div id="login">
+                            <div className="evenly">
+                                <label htmlFor="email">email</label>
+                                <input type="text" id="email" onChange={(e) => { setEmail(e.target.value) }} />
+                            </div>
+                            <br />
+                            <button onClick={() => { sendOTP() }}>Send</button>
+                        </div>
 
                     </>
                     }
                     {isMailSent && <>
-                        <label htmlFor="otp">OTP</label>
-                        <input type="text" id="otp" onChange={(e) => { setOTP(e.target.value) }} />
-                        <br />
-                        <label htmlFor="password">password</label>
-                        <input type="text" id="password" onChange={(e) => { setPassword(e.target.value) }} />
-                        <br />
-                        <button onClick={() => { resetPassword() }}>Send</button>
+                        <div id="login">
+                            <div className="evenly">
+                                <label htmlFor="otp">OTP</label>
+                                <input type="text" id="otp" onChange={(e) => { setOTP(e.target.value) }} />
+                            </div>
+                            <br />
+                            <div className="evenly">
+                                <label htmlFor="password">password</label>
+                                <input type="text" id="password" onChange={(e) => { setPassword(e.target.value) }} />
+                            </div>
+                            <br />
+                            <button onClick={() => { resetPassword() }}>Send</button>
+                        </div>
                     </>
                     }
 
