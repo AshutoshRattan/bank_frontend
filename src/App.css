@@ -12,7 +12,9 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
-
+#transactions{
+        flex-direction: column;
+}
 #login{
     display: flex;
         flex-direction: column;
@@ -40,4 +42,9 @@ thead {
     /* width: 100%; */
     text-align: center;
     vertical-align: middle;
+}
+td{
+    text-align: center;
+    vertical-align: middle;
+    padding-left: 20px;
 }

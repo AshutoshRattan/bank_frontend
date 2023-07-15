@@ -82,32 +82,40 @@ const Transactions = () => {
         <>
             <NavBar />
             <ToastContainer />
-            <table style={{ width: "100%" }}>
-                <thead>
-                    <tr>
-                        <th>From</th>
-                        <th>To</th>
-                        <th>Amount</th>
-                        <th>Time</th>
-                    </tr>
-                </thead>
+            <div className="parent" id='transactions'>
+                <div id="login">
 
-                <tbody>
-                    {recentTransactions.map((transaction) => {
-                        return (
-                            <tr key={transaction.createdAt}>
-                                <td>{transaction.from}</td>
-                                <td>{transaction.to}</td>
-                                <td>{transaction.amount}</td>
-                                <td>{transaction.createdAt}</td>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Amount</th>
+                                <th>Time</th>
                             </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
-            <button onClick={() => { fetchPrev(page) }}> {"<"} </button>
-            <p style={{ display: "inline" }}>{page.current} of {max.current}</p>
-            <button onClick={() => { fetchNext(page) }}> {">"} </button>
+                        </thead>
+
+                        <tbody>
+                            {recentTransactions.map((transaction) => {
+                                return (
+                                    <tr key={transaction.createdAt}>
+                                        <td>{transaction.from}</td>
+                                        <td>{transaction.to}</td>
+                                        <td>{transaction.amount}</td>
+                                        <td>{transaction.createdAt}</td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+
+                    <div>
+                        <button onClick={() => { fetchPrev(page) }}> {"<"} </button>
+                        <p style={{ display: "inline" }}>{page.current} of {max.current}</p>
+                        <button onClick={() => { fetchNext(page) }}> {">"} </button>
+                    </div>
+                </div>
+            </div>
         </>
 
     )
