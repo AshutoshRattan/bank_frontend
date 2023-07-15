@@ -61,13 +61,17 @@ const Home = () => {
             <NavBar />
             <ToastContainer />
             <div className="parent">
-                <div>
-                    <p>balance: {balance}</p>
-                    <label htmlFor="">to</label>
-                    <input type="text" onChange={(e) => { setTo(e.target.value) }} />
+                <div id='login'>
+                    <h4>Current balance: {balance}</h4>
+                    <div className="evenly">
+                        <label htmlFor="">To</label>
+                        <input type="text" onChange={(e) => { setTo(e.target.value) }} />
+                    </div>
                     <br />
-                    <label htmlFor="">amount</label>
-                    <input type="number" onChange={(e) => { setAmount(e.target.value) }} />
+                    <div className="evenly">
+                        <label htmlFor="">Amount</label>
+                        <input type="number" onChange={(e) => { setAmount(e.target.value) }} />
+                    </div>
                     <br />
                     <button type="submit" onClick={() => {
                         transfer(localStorage.getItem("token").replace('"', '').replace('"', ''))
