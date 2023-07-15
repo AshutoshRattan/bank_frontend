@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useGlobalContext } from '../context/GlobalContext';
 import NavBar from '../components/NavBar'
 import { Toast } from 'bootstrap';
+import ClipLoader from "react-spinners/ClipLoader";
 
 const AllTransactions = () => {
     let [id, setId] = useState('')
@@ -16,7 +17,14 @@ const AllTransactions = () => {
     let max = useRef(10)
     let idInput = useRef()
 
+    const override = {
+        display: "block",
+        margin: "15% auto",
+    };
+    let [loading, setLoading] = useState('true')
+
     let allTransactions = async (token, page = 1, limit = 10) => {
+        setLoading(true)
         let params = { limit, page }
         if (id != '' && id.match(/^[0-9a-fA-F]{24}$/)) {
             params.id = id
@@ -33,6 +41,7 @@ const AllTransactions = () => {
         catch (e) {
             console.log(e)
         }
+        setLoading(false)
     }
 
 
@@ -79,6 +88,13 @@ const AllTransactions = () => {
             <ToastContainer />
             <div className="parent">
 
+                {loading ? < ClipLoader
+                    color="#36d7b7"
+                    loading={loading}
+                    cssOverride={override}
+                    size={150}
+                />  :
+
                 <div id='login'>
                     <div className="evenly">
                         <label htmlFor="id">id</label>
@@ -87,7 +103,7 @@ const AllTransactions = () => {
                     <br />
                     <button onClick={() => { clear() }} style={{ 'margin-left': "14px", "margin-top": '5px' }}>clear</button>
                 </div>
-
+                &&
                 <div id='login'>
                     <table >
                         <thead>
@@ -118,6 +134,7 @@ const AllTransactions = () => {
                         <button onClick={() => { fetchNext(page) }}> {">"} </button>
                     </div>
                 </div>
+                }
             </div>
         </>
     )
