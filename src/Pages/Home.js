@@ -42,9 +42,9 @@ const Home = () => {
         <>
             <NavBar />
             <div className="parent">
-                <div>
+                <div id="login">
                     <h1>welcome back {name}</h1>
-                    <p>your balance is {balance}</p>
+                    <h5>your balance is {balance}</h5>
                 </div>
                 {/* <Link to={'/test'}>click</Link> */}
             </div>
