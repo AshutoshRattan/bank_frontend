@@ -75,17 +75,19 @@ const AllTransactions = () => {
             <NavBar />
             <ToastContainer />
 
-            <div className="parent" style={{ 'height': '50vh' }}>
+            <div className="parent">
 
-                <div>
-                    <label htmlFor="query">Query</label>
-                    <input type="text" id="query" onChange={(e) => { setQuery(e.target.value) }} ref={queryInput} />
+                <div id='login'>
+                    <div className="evenly">
+                        <label htmlFor="query">Query</label>
+                        <input type="text" id="query" onChange={(e) => { setQuery(e.target.value) }} ref={queryInput} />
+                    </div>
                     <br />
-                    <button onClick={() => { clear() }} style={{ 'margin-left': "42px", "margin-top": '5px' }}>clear</button>
+                    <button onClick={() => { clear() }}>clear</button>
                 </div>
 
-                <div style={{ width: "70%" }}>
-                    <table style={{ width: "100%" }}>
+                <div id='login'>
+                    <table>
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -108,9 +110,11 @@ const AllTransactions = () => {
                             })}
                         </tbody>
                     </table>
-                    <button onClick={() => { fetchPrev(page) }}> {"<"} </button>
-                    <p style={{ display: "inline" }}>{page.current} of {max.current}</p>
-                    <button onClick={() => { fetchNext(page) }}> {">"} </button>
+                    <div>
+                        <button onClick={() => { fetchPrev(page) }}> {"<"} </button>
+                        <p style={{ display: "inline" }}>{page.current} of {max.current}</p>
+                        <button onClick={() => { fetchNext(page) }}> {">"} </button>
+                    </div>
                 </div>
             </div>
 
