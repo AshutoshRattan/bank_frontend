@@ -43,7 +43,7 @@ const Home = () => {
             <NavBar />
             <div className="parent">
                 <div>
-                    <p>welcome back {name}</p>
+                    <h1>welcome back {name}</h1>
                     <p>your balance is {balance}</p>
                 </div>
                 {/* <Link to={'/test'}>click</Link> */}

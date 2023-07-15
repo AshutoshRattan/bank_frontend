@@ -43,16 +43,25 @@ const Signup = () => {
             <ToastContainer />
 
             <div className='parent'>
-                <div>
+                <div id='login'>
+                    <div className="evenly">
+                        <label htmlFor="name">Name</label>
+                        <input type="text" id='name' onChange={(e) => { setName(e.target.value) }} />
+
+                    </div>
+                    <br />
+                    <div className="evenly">
+                        <label htmlFor="email">Email</label>
+                        <input type="email" id='email' onChange={(e) => { setEmail(e.target.value) }} />
+
+                    </div>
+                    <br />
+                    <div className="evenly">
+                        <label htmlFor="password">Password</label>
+                        <input type="password" id='password' onChange={(e) => { setPassword(e.target.value) }} />
+
+                    </div>
                     {localStorage.getItem("token") ? <Navigate to="/home" /> : null}
-                    <label htmlFor="name">Name</label>
-                    <input type="text" id='name' onChange={(e) => { setName(e.target.value) }} />
-                    <br />
-                    <label htmlFor="email">Email</label>
-                    <input type="email" id='email' onChange={(e) => { setEmail(e.target.value) }} />
-                    <br />
-                    <label htmlFor="password">Password</label>
-                    <input type="password" id='password' onChange={(e) => { setPassword(e.target.value) }} />
                     <br />
                     <button type="submit" onClick={submit}>Submit</button>
                 </div>

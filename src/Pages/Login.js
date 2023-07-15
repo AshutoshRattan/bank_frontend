@@ -41,15 +41,25 @@ const Home = () => {
             <div className='parent'>
                 <div>
                     {localStorage.getItem("token") ? <Navigate to="/home" /> : null}
-                    <label htmlFor="">Email</label>
-                    <input type="email" id='email' onChange={(e) => { setEmail(e.target.value) }} />
-                    <br />
-                    <label htmlFor="">Password</label>
-                    <input type="password" id='password' onChange={(e) => { setPassword(e.target.value) }} />
-                    <br />
-                    <button type="submit" onClick={submit}>Submit</button>
-                    {/* <br /> */}
-                    <Link to={"/forgotPassword"} style={{ paddingLeft: '10px' }}>forgot password</Link>
+
+                    <div id='login'>
+                        <div className='evenly'>
+                            <label htmlFor="">Email</label>
+                            <input type="email" id='email' onChange={(e) => { setEmail(e.target.value) }} />
+                        </div>
+                        <br />
+
+                        <div className='evenly'>
+                            <label htmlFor="">Password</label>
+                            <input type="password" id='password' onChange={(e) => { setPassword(e.target.value) }} />
+                        </div>
+                        <br />
+                        <div className='evenly'>
+                            <button type="submit" onClick={submit}>Submit</button>
+                            {/* <br /> */}
+                            <Link to={"/forgotPassword"} style={{ paddingLeft: '10px' }}>forgot password</Link>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
