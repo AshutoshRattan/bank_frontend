@@ -7,6 +7,7 @@ import axios from 'axios';
 import jwt_decode from "jwt-decode"
 import NavBar from '../components/NavBar'
 import { useGlobalContext } from '../context/GlobalContext';
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Transactions = () => {
     let { beneficiaryList, id, name, setBeneficiaryList } = useGlobalContext()
@@ -14,6 +15,13 @@ const Transactions = () => {
     let page = useRef(1)
     let limit = useRef(10)
     let max = useRef(0)
+
+    // spinner
+    const override = {
+        display: "block",
+        margin: "15% auto",
+    };
+    let [loading, setLoading] = useState('true');
 
     console.count("Transactions render no:")
 
@@ -41,6 +49,7 @@ const Transactions = () => {
 
     let fetchTransactions = async (token, page = 1, limit = 10) => {
         try {
+            setLoading(true)
             let res = await axios.get(`${process.env.REACT_APP_BACKEND + '/api/v1/Money/transactions'}`, {
                 headers: { "Authorization": `Bearer ${token}` },
                 params: { limit, page }
@@ -52,6 +61,7 @@ const Transactions = () => {
         catch (e) {
             toast(e.response.data)
         }
+        setLoading(false)
     }
     useEffect(() => {
         let token = localStorage.getItem("token")
@@ -82,7 +92,17 @@ const Transactions = () => {
         <>
             <NavBar />
             <ToastContainer />
+
             <div className="parent" id='transactions'>
+                {
+                    loading ?
+                        <ClipLoader
+                            color="#36d7b7"
+                            loading={loading}
+                            cssOverride={override}
+                            size={150}
+                        />
+                        :
                 <div id="login">
 
                     <table>
@@ -114,8 +134,10 @@ const Transactions = () => {
                         <p style={{ display: "inline" }}>{page.current} of {max.current}</p>
                         <button onClick={() => { fetchNext(page) }}> {">"} </button>
                     </div>
-                </div>
+                </div>}
             </div>
+            
+        
         </>
 
     )
