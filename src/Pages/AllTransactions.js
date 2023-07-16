@@ -94,46 +94,49 @@ const AllTransactions = () => {
                     cssOverride={override}
                     size={150}
                 />  :
-
-                <div id='login'>
-                    <div className="evenly">
-                        <label htmlFor="id">id</label>
-                        <input type="text" id="id" onChange={(e) => { setId(e.target.value) }} ref={idInput} />
+                
+                <>
+                
+                    <div id='login'>
+                        <div className="evenly">
+                            <label htmlFor="id">id</label>
+                            <input type="text" id="id" onChange={(e) => { setId(e.target.value) }} ref={idInput} />
+                        </div>
+                        <br />
+                        <button onClick={() => { clear() }} style={{ 'margin-left': "14px", "margin-top": '5px' }}>clear</button>
                     </div>
-                    <br />
-                    <button onClick={() => { clear() }} style={{ 'margin-left': "14px", "margin-top": '5px' }}>clear</button>
-                </div>
-                &&
-                <div id='login'>
-                    <table >
-                        <thead>
-                            <tr>
-                                <th>From</th>
-                                <th>To</th>
-                                <th>Amount</th>
-                                <th>Time</th>
-                            </tr>
-                        </thead>
 
-                        <tbody>
-                            {transaction.map((transaction) => {
-                                return (
-                                    <tr key={transaction.createdAt}>
-                                        <td onClick={(e) => { copy(e) }}>{transaction.from}</td>
-                                        <td onClick={(e) => { copy(e) }}>{transaction.to}</td>
-                                        <td>{transaction.amount}</td>
-                                        <td>{transaction.createdAt}</td>
-                                    </tr>
-                                )
-                            })}
-                        </tbody>
-                    </table>
-                    <div>
-                        <button onClick={() => { fetchPrev(page) }}> {"<"} </button>
-                        <p style={{ display: "inline" }}>{page.current} of {max.current}</p>
-                        <button onClick={() => { fetchNext(page) }}> {">"} </button>
-                    </div>
+                    <div id='login'>
+                        <table >
+                            <thead>
+                                <tr>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Amount</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {transaction.map((transaction) => {
+                                    return (
+                                        <tr key={transaction.createdAt}>
+                                            <td onClick={(e) => { copy(e) }}>{transaction.from}</td>
+                                            <td onClick={(e) => { copy(e) }}>{transaction.to}</td>
+                                            <td>{transaction.amount}</td>
+                                            <td>{transaction.createdAt}</td>
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
+                        </table>
+                        <div>
+                            <button onClick={() => { fetchPrev(page) }}> {"<"} </button>
+                            <p style={{ display: "inline" }}>{page.current} of {max.current}</p>
+                            <button onClick={() => { fetchNext(page) }}> {">"} </button>
+                        </div>
                 </div>
+                </>
                 }
             </div>
         </>

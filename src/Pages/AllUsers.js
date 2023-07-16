@@ -92,7 +92,8 @@ const AllTransactions = () => {
                     cssOverride={override}
                     size={150}
                 /> :
-
+                    <>
+                    
                 <div id='login'>
                     <div className="evenly">
                         <label htmlFor="query">Query</label>
@@ -101,7 +102,6 @@ const AllTransactions = () => {
                     <br />
                     <button onClick={() => { clear() }}>clear</button>
                 </div>
-                &&
                 <div id='login'>
                     <table>
                         <thead>
@@ -131,7 +131,8 @@ const AllTransactions = () => {
                         <p style={{ display: "inline" }}>{page.current} of {max.current}</p>
                         <button onClick={() => { fetchNext(page) }}> {">"} </button>
                     </div>
-                </div>}
+                </div>
+                    </>}
             </div>
 
         </>
